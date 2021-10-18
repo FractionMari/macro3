@@ -189,7 +189,7 @@ function init(options) {
         // CANVAS 1 SETTINGS
         motionCanvas = options.motionCanvas || document.createElement('canvas');
         diffWidth = options.diffWidth || 4;
-        diffHeight = options.diffHeight || 32;
+        diffHeight = options.diffHeight || 8;
         includeMotionBox = options.includeMotionBox || false;
         includeMotionPixels = options.includeMotionPixels || false;
         captureCallback = options.captureCallback || function() {};
@@ -223,8 +223,8 @@ function init(options) {
 
         // CANVAS 3 SETTINGS
         motionCanvas3 = options.motionCanvas3 || document.createElement('canvas3');
-        diffWidth3 = options.diffWidth3 || 8;
-        diffHeight3 = options.diffHeight3 || 5;
+        diffWidth3 = options.diffWidth3 || 4;
+        diffHeight3 = options.diffHeight3 || 8;
         includeMotionBox3 = options.includeMotionBox3 || false;
         includeMotionPixels3 = options.includeMotionPixels3 || false;
         captureCallback3 = options.captureCallback3 || function() {};
@@ -274,7 +274,7 @@ function capture() {
 
 
     // CANVAS 3:
-    var captureImageData3 = captureContext.getImageData(0, 4, captureWidth, 1);
+    var captureImageData3 = captureContext.getImageData(0, 1, captureWidth, 1);
     diffContext3.globalCompositeOperation = 'difference'; 
     diffContext3.drawImage(video, 0, 0, diffWidth3, diffHeight3);   
     // denne forskjellen er viktig. diffContext3 er essensiell.
@@ -283,7 +283,7 @@ function capture() {
     // motionContext3.putImageData(diffImageData3, 1, 0);
     // Those values will give only one line of pixels on the canvas: var diffImageData3 = diffContext3.getImageData(1, 1, diffWidth3, diffHeight3); // BEHOLD
         
-    var diffImageData3 = diffContext3.getImageData(2, 3, diffWidth3, 1); // BEHOLD
+    var diffImageData3 = diffContext3.getImageData(1, 1, diffWidth3, diffHeight3); // BEHOLD
     //*** behold */
     diffContext3.globalCompositeOperation = 'source-over';
     diffContext3.drawImage(video, 0, 0, diffWidth3, diffHeight3);
@@ -358,7 +358,7 @@ function capture() {
  // The values inside the following line must be the same as in:  
  // var diffImageData3 = diffContext3.getImageData(1, 0, diffWidth3, diffHeight3); // BEHOLD.
  // Those values will give only one line of pixels on the canvas:   motionContext3.putImageData(diffImageData3, 1, 1);
- motionContext3.putImageData(diffImageData3, 2, 3);
+ motionContext3.putImageData(diffImageData3, 1, 1);
  if (diff3.motionBox) {
      motionContext3.strokeStyle = '#fff';
      motionContext3.strokeRect(
@@ -418,11 +418,11 @@ function capture() {
 			//var xValue = (((i * (-1)) + 40) / 8) / 50; //	
 			//gainNode2.gain.value = xValue; //
 
-            var xValue = (i * (-1)) + 249;	
+            var xValue = (i * (-1)) + 57;	
             // Scaling the number with generateScaleFunction
-            let filterScale = generateScaleFunction(0, 249, 0, 10);      
+            let filterScale = generateScaleFunction(0, 57, 0, 10);      
             xValue = filterScale(xValue);
-            yNormValue = (((i * (-1)) + 248)/ 248)
+            yNormValue = (((i * (-1)) + 56)/ 56)
             // This is where any value can be controlled by the number "i".
             console.log(yNormValue);
             phaser.frequency.value = xValue;
@@ -434,30 +434,30 @@ function capture() {
 
 
            //phaser.baseFrequency.rampTo(xValue, 0.2);
-           //console.log(xValue);
+           console.log(i);
 
-           if (i == 248)
+           if (i == 56)
                 synth.triggerAttackRelease(scaleSelect[0], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[0];
-            else if (i == 216)
+            else if (i == 48)
                 synth.triggerAttackRelease(scaleSelect[1], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[1];
-            else if (i == 184)
+            else if (i == 40)
                 synth.triggerAttackRelease(scaleSelect[2], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[2];
-            else if (i == 152)
+            else if (i == 32)
                 synth.triggerAttackRelease(scaleSelect[3], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[3];
-            else if (i == 120)
+            else if (i == 24)
                 synth.triggerAttackRelease(scaleSelect[4], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[4];
-            else if (i == 88)
+            else if (i == 16)
                 synth.triggerAttackRelease(scaleSelect[5], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[5];
-            else if (i == 56)
+            else if (i == 8)
                 synth.triggerAttackRelease(scaleSelect[6], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[6];         
-            else if (i == 24)
+            else if (i == 0)
                 synth.triggerAttackRelease(scaleSelect[7], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[7];
             
@@ -512,23 +512,37 @@ function capture() {
             if (i == 20)
                 document.getElementById("fx1on").innerHTML =
                 "on",
-                document.getElementById("fx1off").innerHTML =
+                document.getElementById("fx2on").innerHTML =
                 "",
-                gainSynth1.connect(phaser);
+                document.getElementById("fx3on").innerHTML =
+                "",
+                gainSynth1.connect(phaser),
+                gainSynth1.disconnect(shift),
+                gainSynth1.disconnect(pingPong);
 
 
             else if (i == 16)
                 document.getElementById("fx2on").innerHTML =
                 "on",
-                document.getElementById("fx2off").innerHTML =
+                document.getElementById("fx1on").innerHTML =
                 "",
-                gainSynth1.connect(shift);
+                document.getElementById("fx3on").innerHTML =
+                "",
+
+                gainSynth1.connect(shift),
+                gainSynth1.disconnect(phaser),
+                gainSynth1.disconnect(pingPong);
             else if (i == 12)
                 document.getElementById("fx3on").innerHTML =
                 "on",
-                document.getElementById("fx3off").innerHTML =
+                document.getElementById("fx2on").innerHTML =
                 "",
-                gainSynth1.connect(pingPong);
+                document.getElementById("fx1on").innerHTML =
+                "",
+
+                gainSynth1.connect(pingPong),
+                gainSynth1.disconnect(shift),
+                gainSynth1.disconnect(phaser);
 
             // instruments on:
             else if (i == 8)
