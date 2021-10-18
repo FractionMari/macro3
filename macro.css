@@ -1,0 +1,607 @@
+/* Macro app 2 monitoring: */
+#timeSign {
+  position: absolute;
+  top: 20px;
+  right: 0px;
+  font-size: 40px;
+}
+
+#tempo {
+  position: absolute;
+  top: 60px;
+  right: 0px;
+  font-size: 40px;
+}
+
+#scale {
+  position: absolute;
+  top: 100px;
+  right: 0px;
+  font-size: 40px;
+}
+#synth1on1 {
+  position: absolute;
+  top: 305px;
+  left: 135px;
+  font-size: 100px;
+}
+#synth1on0 {
+  position: absolute;
+  top: 305px;
+  left: 240px;
+  font-size: 100px;
+}
+
+
+#synth2on1 {
+  position: absolute;
+  top: 305px;
+  left: 355px;
+  font-size: 100px;
+}
+#synth2on0 {
+  position: absolute;
+  top: 305px;
+  left: 460px;
+  font-size: 100px;
+}
+
+#synth3on1 {
+  position: absolute;
+  top: 305px;
+  left: 575px;
+  font-size: 100px;
+}
+#synth3on0 {
+  position: absolute;
+  top: 305px;
+  left: 680px;
+  font-size: 100px;
+}
+
+/* Macro app 1 monitoring: */
+
+#synthNote  {
+  position: absolute;
+  top: 20px;
+  right: 0px;
+  font-size: 40px;
+}
+
+#fx1 {
+  position: absolute;
+  top: 460px;
+  left: 135px;
+  font-size: 15px;
+}
+
+#fx2 {
+  position: absolute;
+  top: 460px;
+  left: 240px;
+  font-size: 15px;
+}
+
+#fx3 {
+  position: absolute;
+  top: 460px;
+  left: 355px;
+  font-size: 15px;
+}
+
+#fx1on {
+  position: absolute;
+  top: 400px;
+  left: 135px;
+  font-size: 30px;
+}
+
+#fx2on {
+  position: absolute;
+  top: 400px;
+  left: 240px;
+  font-size: 30px;
+}
+
+#fx3on {
+  position: absolute;
+  top: 400px;
+  left: 355px;
+  font-size: 30px;
+}
+
+
+#instr1on {
+  position: absolute;
+  top: 400px;
+  left: 460px;
+  font-size: 20px;
+  width: 50px;
+}
+
+#instr2on  {
+  position: absolute;
+  top: 400px;
+  left: 575px;
+  font-size: 20px;
+  width: 50px;
+}
+#instr3on  {
+  position: absolute;
+  top: 400px;
+  left: 680px;
+  font-size: 20px;
+  width: 50px;
+}
+
+
+#scale1on {
+  position: absolute;
+  top: 305px;
+  left: 460px;
+  font-size: 20px;
+  width: 50px;
+}
+
+#scale2on  {
+  position: absolute;
+  top: 305px;
+  left: 575px;
+  font-size: 20px;
+  width: 50px;
+}
+#scale3on  {
+  position: absolute;
+  top: 305px;
+  left: 680px;
+  font-size: 20px;
+  width: 50px;
+}
+
+.rectangle {
+  position: absolute;
+  top: 310px;
+  left: 440px;
+  height: 100px;
+  width: 330px;
+  background-color: #ff00ea27;
+  font-size: 70px;
+  text-align: center;
+  color:rgba(0, 0, 0, 0.199);
+}
+
+.rect_instr {
+  position: absolute;
+  top: 410px;
+  left: 440px;
+  height: 100px;
+  width: 330px;
+  background-color: #00ff1527;
+  font-size: 45px;
+  text-align: center;
+  color:rgba(0, 0, 0, 0.199);
+}
+
+.rect_fx {
+  position: absolute;
+  top: 310px;
+  left: 105px;
+  height: 200px;
+  width: 330px;
+  background-color: #00e1ff27;
+  font-size: 70px;
+  text-align: center;
+  color:rgba(0, 0, 0, 0.199);
+}
+
+#fx1off {
+  position: absolute;
+  top: 305px;
+  left: 135px;
+  font-size: 30px;
+}
+
+#fx2off {
+  position: absolute;
+  top: 305px;
+  left: 240px;
+  font-size: 30px;
+}
+
+#fx3off {
+  position: absolute;
+  top: 305px;
+  left: 355px;
+  font-size: 30px;
+}
+
+
+/* Animation for gradually disappearing box with instructions. Thanks to https://stackoverflow.com/questions/39513705/make-html-element-disappear-with-css-animation */
+
+@keyframes myAnimation{
+  0%{
+    opacity: 0.9;
+    transform: rotateX(90deg);
+  }
+  50%{
+    opacity: 0.5;
+    transform: rotateX(0deg);
+  }
+  100%{
+    display: none;
+    opacity: 0;
+    transform: rotateX(90deg);
+  }
+}
+
+#myelement{
+  position: absolute;
+  top: 0px;
+  left: 200px;
+  height: 900px;
+  width: 700px;
+  background-color: #000000;
+  text-align: center;
+  color:rgb(255, 255, 255);
+  
+    animation-name: myAnimation;
+    animation-duration: 35000ms;
+    animation-fill-mode: forwards;
+
+}
+
+
+body {
+	margin: 20px;
+  font: 1.5em/1.2 sans-serif;
+  font-family: 'Turret Road', cursive;
+  font-weight: 900;
+	text-align: center;
+  background-color: black;
+  color: #00ff00; 
+}
+
+figure {
+	display: inline-block;
+	margin: 0px;
+	vertical-align: top;
+}
+
+video, canvas {
+	width: 900px;
+	height: 500px;
+	-moz-transform: scale(-1, 1);
+	-webkit-transform: scale(-1, 1);
+	-o-transform: scale(-1, 1);
+	transform: scale(-1, 1);
+	filter: FlipH;
+  border-radius: 12px;
+  image-rendering: pixelated;
+}
+
+.center {
+  position: relative;
+  width: 1100px;
+  height: auto;
+  padding: 0;
+  margin: auto;
+  display: block;
+  background-color: #333;
+
+}
+
+.wrapper {
+  position: relative;
+  width: 900px;
+  height: 500px;
+  padding: 0;
+  margin: auto;
+  display: block;
+  text-align: left;
+  size: 20px;
+
+}
+
+.monitoring {
+  position: absolute;
+  top: 30px;
+  width: 900px;
+  height: 500px;
+  padding: 0;
+  margin: auto;
+  display: block;
+  text-align: left;
+
+}
+
+.wrapper canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+}
+
+button {
+  background-color: #00ff00; 
+  border-radius: 50px;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: bold;
+  display: inline-block;
+  font-family: 'Turret Road', cursive;
+  font-size: 20px;
+}
+
+button.active {
+  background-color: #333;
+}
+
+button:hover {
+  background-color: #333;
+  color: #00ff00; 
+}
+
+#mute {
+  padding: 5px 5px;
+}
+#playAudio2 {
+
+  position: absolute;
+    top: 444px;
+    left: 0px;
+    width: 100px;
+    height: 100px;
+    border-radius: 0%;
+    font-size:20px;
+    font-weight: 900;
+    padding: 5px 5px;
+    text-align:start;
+    background-color: #00ff00; 
+    color: #ffffff;
+}
+
+#playAudio2:hover {
+  background-color: #333;
+  color: #00ff00; 
+}
+
+
+#playAudio3 {
+
+  position: absolute;
+    top: 344px;
+    left: 0px;
+    width: 100px;
+    height: 100px;
+    border-radius: 0%;
+    font-size:20px;
+    padding: 5px 5px;
+    text-align:start;
+    background-color: #00ff00; 
+    color: #ffffff;
+}
+
+#playAudio3:hover {
+  background-color: #333;
+  color: #00ff00; 
+}
+
+#effect1 {
+
+  position: absolute;
+    top: 444px;
+    left: 1000px;
+    width: 100px;
+    height: 100px;
+    border-radius: 0%;
+    font-size:20px;
+    font-weight: 900;
+    padding: 5px 5px;
+    text-align:start;
+    background-color: #00ff00; 
+    color: #ffffff;
+}
+
+#effect1:hover {
+  background-color: #333;
+  color: #00ff00; 
+}
+
+#effect1 {
+
+  position: absolute;
+    top: 444px;
+    left: 1000px;
+    width: 100px;
+    height: 100px;
+    border-radius: 0%;
+    font-size:20px;
+    font-weight: 900;
+    padding: 5px 5px;
+    text-align:start;
+    background-color: #00ff00; 
+    color: #ffffff;
+}
+
+#effect1:hover {
+  background-color: #333;
+  color: #00ff00; 
+}
+
+#effect2 {
+
+  position: absolute;
+    top: 344px;
+    left: 1000px;
+    width: 100px;
+    height: 100px;
+    border-radius: 0%;
+    font-size:20px;
+    font-weight: 900;
+    padding: 5px 5px;
+    text-align:start;
+    background-color: #00ff00; 
+    color: #ffffff;
+}
+
+#effect2:hover {
+  background-color: #333;
+  color: #00ff00; 
+}
+
+#effect3 {
+
+  position: absolute;
+    top: 244px;
+    left: 1000px;
+    width: 100px;
+    height: 100px;
+    border-radius: 0%;
+    font-size:20px;
+    font-weight: 900;
+    padding: 5px 5px;
+    text-align:start;
+    background-color: #00ff00; 
+    color: #ffffff;
+}
+
+#effect3:hover {
+  background-color: #333;
+  color: #00ff00; 
+}
+
+#effect4 {
+
+  position: absolute;
+    top: 144px;
+    left: 1000px;
+    width: 100px;
+    height: 100px;
+    border-radius: 0%;
+    font-size:20px;
+    font-weight: 900;
+    padding: 5px 5px;
+    text-align:start;
+    background-color: #00ff00; 
+    color: #ffffff;
+}
+
+#effect4:hover {
+  background-color: #333;
+  color: #00ff00; 
+}
+
+
+#helpButton {
+  padding: 10px 10px;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  border-radius: 50%;
+  top: 3px;
+  right: 3px;
+  font-size: 22px;
+ 
+}
+
+.content {
+  padding: 18px;
+  display: none;
+  float: inline-end;
+  overflow: hidden;
+  color:rgb(255, 255, 255);
+  font-size: 17px;
+  font-variant: normal;
+  text-align: left;
+  margin: 0 auto;
+  width: auto;
+  max-width:300px;
+  height: auto;
+  background: rgb(0, 0, 0);
+  color: #00ff00; 
+  background-size: cover;
+}
+  
+.dots {
+  font-size: 13px;
+  text-align: left;
+  vertical-align: middle;    
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+  z-index: 2;
+}
+    
+.topnav a {
+  float: center;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 10px 12px;
+  text-decoration: none;
+  font-size: 20px;
+  width: 600px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #00ff00; 
+  color: white;
+}
+    
+
+
+#containerHidden {
+
+  font-size: 0px;
+  color: #ffffff00;
+  }
+
+
+
+  .slidecontainer {
+    width: 100%; /* Width of the outside container */
+  }
+  
+  /* The slider itself */
+  .slider {
+    -webkit-appearance: none;  /* Override default CSS styles */
+    appearance: none;
+    vertical-align: middle;
+    width: 15%; /* Full-width */
+    height: 25px; /* Specified height */
+    background: #00ff00;  /* Grey background */
+    outline: none; /* Remove outline */
+    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+    border-radius: 50px;
+  }
+  
+  /* Mouse-over effects */
+  .slider:hover {
+    opacity: 5; /* Fully shown on mouse-over */
+  }
+  
+  /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+  .slider::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Override default look */
+    appearance: none;
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #ffffff; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+    border-radius: 50px;
+  }
+  
+  .slider::-moz-range-thumb {
+    width: 25px; /* Set a specific slider handle width */
+    height: 25px; /* Slider handle height */
+    background: #ffffff; /* Green background */
+    cursor: pointer; /* Cursor on hover */
+    border-radius: 59px;
+  }
