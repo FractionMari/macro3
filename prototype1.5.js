@@ -58,7 +58,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
     // deafault synth:
     const synth1 = new Tone.MonoSynth({
         oscillator: {
-            type: "square2"
+            type: "sine9"
         },
         envelope: {
             attack: 0.9,
