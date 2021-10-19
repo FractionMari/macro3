@@ -493,7 +493,7 @@ function capture() {
                 gainSynth1.disconnect(phaser);
 
             // instruments on:
-             }else if (i == 8) {
+             } if (i == 8) {
             document.getElementById("instr1on").innerHTML =
             "Synth1: on";
             document.getElementById("instr2on").innerHTML =
