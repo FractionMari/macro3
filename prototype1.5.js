@@ -50,9 +50,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
     //const shift = new Tone.FrequencyShifter().connect(gainNode);
     
     // devide four effects by four to not exceed 100
-    pingPong.wet.value = 0.5;
+    pingPong.wet.value = 1;
     //cheby.wet.value = 1;
-    phaser.wet.value = 0.5;
+    phaser.wet.value = 1;
     //shift.wet.value = 1;
 
     // deafault synth:
@@ -61,7 +61,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
             type: "sine9"
         },
         envelope: {
-            attack: 0.1,
+            attack: 0.9,
             decay: 0.3,
             sustain: 0.5,
             release: 0.3
@@ -69,7 +69,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
     }).connect(gainSynth1);
     
     const synth2 = new Tone.Sampler({
-        volume: -19,
         urls: {
             Ab3: "samples/Ab3.mp3",
             Db3: "samples/Db3.mp3",
@@ -412,37 +411,37 @@ function capture() {
            if (i == 56)
                 synth1.triggerAttackRelease(scaleSelect[0], "2n"),
                 synth2.triggerAttackRelease(scaleSelect[0], "2n"),
-                synth3.triggerAttackRelease(scaleSelect[7], "2n"),
+                synth3.triggerAttackRelease(scaleSelect[0], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[0];
             else if (i == 48)
                synth1.triggerAttackRelease(scaleSelect[1], "2n"),
                 synth2.triggerAttackRelease(scaleSelect[1], "2n"),
-                synth3.triggerAttackRelease(scaleSelect[8], "2n"),
+                synth3.triggerAttackRelease(scaleSelect[1], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[1];
             else if (i == 40)
                synth1.triggerAttackRelease(scaleSelect[2], "2n"),
                 synth2.triggerAttackRelease(scaleSelect[2], "2n"),
-                synth3.triggerAttackRelease(scaleSelect[9], "2n"),
+                synth3.triggerAttackRelease(scaleSelect[2], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[2];
             else if (i == 32)
                synth1.triggerAttackRelease(scaleSelect[3], "2n"),
                 synth2.triggerAttackRelease(scaleSelect[3], "2n"),
-                synth3.triggerAttackRelease(scaleSelect[10], "2n"),
+                synth3.triggerAttackRelease(scaleSelect[3], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[3];
             else if (i == 24)
                 synth1.triggerAttackRelease(scaleSelect[4], "2n"),
                 synth2.triggerAttackRelease(scaleSelect[4], "2n"),
-                synth3.triggerAttackRelease(scaleSelect[11], "2n"),
+                synth3.triggerAttackRelease(scaleSelect[4], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[4];
             else if (i == 16)
                 synth1.triggerAttackRelease(scaleSelect[5], "2n"),
                 synth2.triggerAttackRelease(scaleSelect[5], "2n"),
-                synth3.triggerAttackRelease(scaleSelect[12], "2n"),
+                synth3.triggerAttackRelease(scaleSelect[5], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[5];
             else if (i == 8)
                 synth1.triggerAttackRelease(scaleSelect[6], "2n"),
                 synth2.triggerAttackRelease(scaleSelect[6], "2n"),
-                synth3.triggerAttackRelease(scaleSelect[13], "2n"),
+                synth3.triggerAttackRelease(scaleSelect[6], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[6];         
             else if (i == 0)
                 synth1.triggerAttackRelease(scaleSelect[7], "2n"),
