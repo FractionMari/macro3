@@ -412,42 +412,42 @@ function capture() {
            if (i == 56)
                 synth1.triggerAttackRelease(scaleSelect[0], "2n"),
                 synth2.triggerAttackRelease(scaleSelect[0], "2n"),
-                synth3.triggerAttackRelease(scaleSelect[0], "2n"),
+                synth3.triggerAttackRelease(scaleSelect[7], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[0];
             else if (i == 48)
                synth1.triggerAttackRelease(scaleSelect[1], "2n"),
                 synth2.triggerAttackRelease(scaleSelect[1], "2n"),
-                synth3.triggerAttackRelease(scaleSelect[1], "2n"),
+                synth3.triggerAttackRelease(scaleSelect[8], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[1];
             else if (i == 40)
                synth1.triggerAttackRelease(scaleSelect[2], "2n"),
                 synth2.triggerAttackRelease(scaleSelect[2], "2n"),
-                synth3.triggerAttackRelease(scaleSelect[2], "2n"),
+                synth3.triggerAttackRelease(scaleSelect[9], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[2];
             else if (i == 32)
                synth1.triggerAttackRelease(scaleSelect[3], "2n"),
                 synth2.triggerAttackRelease(scaleSelect[3], "2n"),
-                synth3.triggerAttackRelease(scaleSelect[3], "2n"),
+                synth3.triggerAttackRelease(scaleSelect[10], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[3];
             else if (i == 24)
                 synth1.triggerAttackRelease(scaleSelect[4], "2n"),
                 synth2.triggerAttackRelease(scaleSelect[4], "2n"),
-                synth3.triggerAttackRelease(scaleSelect[4], "2n"),
+                synth3.triggerAttackRelease(scaleSelect[11], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[4];
             else if (i == 16)
                 synth1.triggerAttackRelease(scaleSelect[5], "2n"),
                 synth2.triggerAttackRelease(scaleSelect[5], "2n"),
-                synth3.triggerAttackRelease(scaleSelect[5], "2n"),
+                synth3.triggerAttackRelease(scaleSelect[12], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[5];
             else if (i == 8)
                 synth1.triggerAttackRelease(scaleSelect[6], "2n"),
                 synth2.triggerAttackRelease(scaleSelect[6], "2n"),
-                synth3.triggerAttackRelease(scaleSelect[6], "2n"),
+                synth3.triggerAttackRelease(scaleSelect[13], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[6];         
             else if (i == 0)
                 synth1.triggerAttackRelease(scaleSelect[7], "2n"),
                 synth2.triggerAttackRelease(scaleSelect[7], "2n"),
-                synth3.triggerAttackRelease(scaleSelect[7], "2n"),
+                synth3.triggerAttackRelease(scaleSelect[14], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[7];
             
 			}
@@ -532,9 +532,11 @@ function capture() {
             document.getElementById("instr3on").innerHTML =
             "",
 
-           synth1.connect(gainSynth1),
+
             synth2.disconnect(gainSynth1),
-            synth3.disconnect(gainSynth1);
+            synth3.disconnect(gainSynth1),
+
+            synth1.connect(gainSynth1);
 
             else if (i == 4)
             document.getElementById("instr2on").innerHTML =
@@ -543,9 +545,11 @@ function capture() {
             "",
             document.getElementById("instr3on").innerHTML =
             "",
-            synth2.connect(gainSynth1),
             synth1.disconnect(gainSynth1),
-            synth3.disconnect(gainSynth1);
+            synth3.disconnect(gainSynth1),
+
+            synth2.connect(gainSynth1);
+
     
             else if (i == 0)
             document.getElementById("instr3on").innerHTML =
@@ -554,9 +558,12 @@ function capture() {
             "",
             document.getElementById("instr1on").innerHTML =
             "",
-            synth3.connect(gainSynth1),
+            synth1.disconnect(gainSynth1),
             synth2.disconnect(gainSynth1),
-            synth1.disconnect(gainSynth1);
+
+            synth3.connect(gainSynth1);
+
+
             
 
 			}
