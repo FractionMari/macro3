@@ -500,9 +500,13 @@ function capture() {
             "";
             document.getElementById("instr3on").innerHTML =
             "";
+            console.log("før synth connect");
             synth1.connect(gainSynth1);
+            console.log("mellom 1 disconnect");
             synth2.disconnect(gainSynth1);
+            console.log("mellom 2 disconnect");
             synth3.disconnect(gainSynth1);
+            console.log("etter synth connect");
 
         } else if (i == 4) {
             document.getElementById("instr2on").innerHTML =
