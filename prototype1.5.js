@@ -447,7 +447,7 @@ function capture() {
             else if (i == 0)
                 synth1.triggerAttackRelease(scaleSelect[7], "2n"),
                 synth2.triggerAttackRelease(scaleSelect[7], "2n"),
-                synth3.triggerAttackRelease(scaleSelect[14], "2n"),
+                synth3.triggerAttackRelease(scaleSelect[7], "2n"),
                 document.getElementById("synthNote").innerHTML = "Note: " + scaleSelect[7];
             
 			}
@@ -532,11 +532,9 @@ function capture() {
             document.getElementById("instr3on").innerHTML =
             "",
 
-
+           synth1.connect(gainSynth1),
             synth2.disconnect(gainSynth1),
-            synth3.disconnect(gainSynth1),
-
-            synth1.connect(gainSynth1);
+            synth3.disconnect(gainSynth1);
 
             else if (i == 4)
             document.getElementById("instr2on").innerHTML =
@@ -545,11 +543,9 @@ function capture() {
             "",
             document.getElementById("instr3on").innerHTML =
             "",
+            synth2.connect(gainSynth1),
             synth1.disconnect(gainSynth1),
-            synth3.disconnect(gainSynth1),
-
-            synth2.connect(gainSynth1);
-
+            synth3.disconnect(gainSynth1);
     
             else if (i == 0)
             document.getElementById("instr3on").innerHTML =
@@ -558,12 +554,9 @@ function capture() {
             "",
             document.getElementById("instr1on").innerHTML =
             "",
-            synth1.disconnect(gainSynth1),
+            synth3.connect(gainSynth1),
             synth2.disconnect(gainSynth1),
-
-            synth3.connect(gainSynth1);
-
-
+            synth1.disconnect(gainSynth1);
             
 
 			}
