@@ -76,43 +76,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
       
       
       });
-/*     const synth2 = new Tone.DuoSynth({
-        volume: -19,
-        voice0: {
-            oscillator: {
-                type: "fmsawtooth",
 
-              },
-            envelope: {
-                attack: 0.9,
-                decay: 0.3,
-                sustain: 1,
-                release: 0.9,
-            },
-            filter: {
-                Q: 17,
-                frequency: 850,
-
-            },
-        },
-
-        voice1: {
-            oscillator: {
-                type: "pulse",
-
-              },
-
-        },
-
-
-      }); */
 
       const synth3 =  new Tone.Sampler({
         urls: {
-            A1: "A1.mp3",
-            A2: "A2.mp3",
+            G1: "samples/3G1.mp3",
+            G2: "samples/3G2.mp3",
         },
-        baseUrl: "https://tonejs.github.io/audio/casio/",
     
     });
 
@@ -543,8 +513,8 @@ function capture() {
             document.getElementById("instr3on").innerHTML =
             "",
             synth2.connect(gainSynth1),
-            synth1.disconnect(gainSynth1),
-            synth3.disconnect(gainSynth1);
+            synth3.disconnect(gainSynth1),
+            synth1.disconnect(gainSynth1);
     
             else if (i == 0)
             document.getElementById("instr3on").innerHTML =
