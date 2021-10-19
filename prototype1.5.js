@@ -70,8 +70,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
     
     const synth2 = new Tone.Sampler({
         urls: {
-            Ab3: "samples/2Ab3.mp3",
-            Ab2: "samples/2Ab2.mp3",
+            Ab3: "samples/Ab3.mp3",
+            Db3: "samples/Db3.mp3",
         },
       
       
@@ -500,8 +500,7 @@ function capture() {
             "",
             document.getElementById("instr3on").innerHTML =
             "",
-
-           synth1.connect(gainSynth1),
+            synth1.connect(gainSynth1),
             synth2.disconnect(gainSynth1),
             synth3.disconnect(gainSynth1);
 
