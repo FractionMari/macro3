@@ -33,11 +33,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
     // gain:
     const gainNode = new Tone.Gain().toDestination();
     const gainSynth1 = new Tone.Gain().toDestination();
-    const gainSynth2 = new Tone.Gain().toDestination();
+
 
     gainNode.gain.value = 0.3;
     gainSynth1.gain.value = 0.3;
-    gainSynth2.gain.value = 0.3;
+
 
     // effects
     const pingPong = new Tone.PingPongDelay().connect(gainNode);
@@ -51,7 +51,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
     
     // devide four effects by four to not exceed 100
     pingPong.wet.value = 1;
-    cheby.wet.value = 1;
+    //cheby.wet.value = 1;
     phaser.wet.value = 1;
     //shift.wet.value = 1;
 
@@ -81,14 +81,14 @@ document.getElementById("mute").addEventListener("click", function(){
     this.innerHTML = "MUTE"
     gainNode.gain.rampTo(0.3, 0.2);
     gainSynth1.gain.rampTo(0.3, 0.2);
-    gainSynth2.gain.rampTo(0.3, 0.2);
+
   }else{
     this.className = "is-playing";
     this.innerHTML = "UNMUTE";
 
     gainNode.gain.rampTo(0, 0.2);
     gainSynth1.gain.rampTo(0, 0.2);
-    gainSynth2.gain.rampTo(0, 0.2);
+
 
   }
 
@@ -101,7 +101,7 @@ slider.oninput = function() {
     console.log(this.value);
     gainNode.gain.rampTo((this.value / 3), 0.2);
     gainSynth1.gain.rampTo((this.value / 3), 0.2);
-    gainSynth2.gain.rampTo((this.value / 3), 0.2);
+
     
 }
 
@@ -148,18 +148,7 @@ var DiffCamEngine = (function() {
     var diffHeight2;			// downscaled height for diff/motion for a second canvas
     var includeMotionBox2;		// flag to calculate and draw motion bounding box
     var includeMotionPixels2;	// flag to create object denoting pixels with motion
-    /* 
-    // CANVAS 3 VARIABLES:
-	var diffCanvas3;			// internal canvas for diffing downscaled captures BEHOLD
-	var diffContext3;			// context for diff canvas. BEHOLD
-    var motionCanvas3;			// receives processed diff images for the second canvas
-    var motionContext3;			// context for motion canvas
-	var captureCallback3;		// called when an image has been captured and diffed BEHOLD for å monitore values til HTML
-    var diffWidth3;				// downscaled width for diff/motion
-    var diffHeight3;			// downscaled height for diff/motion for a second canvas
-    var includeMotionBox3;		// flag to calculate and draw motion bounding box
-	var includeMotionPixels3;	// flag to create object denoting pixels with motion
- */
+
 	
 ///////// CANVAS AND WEBCAM OPTIONS /////////////
 function init(options) {
@@ -220,24 +209,7 @@ function init(options) {
         motionCanvas2.width = diffWidth2;
         motionCanvas2.height = diffHeight2;
         motionContext2 = motionCanvas2.getContext('2d');
-/* 
-        // CANVAS 3 SETTINGS
-        motionCanvas3 = options.motionCanvas3 || document.createElement('canvas3');
-        diffWidth3 = options.diffWidth3 || 4;
-        diffHeight3 = options.diffHeight3 || 8;
-        includeMotionBox3 = options.includeMotionBox3 || false;
-        includeMotionPixels3 = options.includeMotionPixels3 || false;
-        captureCallback3 = options.captureCallback3 || function() {};
-        diffCanvas3 = document.createElement('canvas');
-        // prep second diff canvas
-        diffCanvas3.width = diffWidth3;
-        diffCanvas3.height = diffHeight3;
-        diffContext3 = diffCanvas3.getContext('2d');
-        // prep second motion canvas
-        motionCanvas3.width = diffWidth3;
-        motionCanvas3.height = diffHeight3;
-        motionContext3 = motionCanvas3.getContext('2d');
- */
+
         // If making new canvases, remember to update "diffcam.js"
 
         requestWebcam();
@@ -272,22 +244,6 @@ function capture() {
     diffContext2.globalCompositeOperation = 'source-over';
     diffContext2.drawImage(video, 0, 0, diffWidth2, diffHeight2);
 
-/* 
-    // CANVAS 3:
-    var captureImageData3 = captureContext.getImageData(0, 0, captureWidth, 1);
-    diffContext3.globalCompositeOperation = 'difference'; 
-    diffContext3.drawImage(video, 0, 0, diffWidth3, diffHeight3);   
-    // denne forskjellen er viktig. diffContext3 er essensiell.
-
-    // The values inside the following line must be the same as in:  
-    // motionContext3.putImageData(diffImageData3, 1, 0);
-    // Those values will give only one line of pixels on the canvas: var diffImageData3 = diffContext3.getImageData(1, 1, diffWidth3, diffHeight3); // BEHOLD
-        
-    var diffImageData3 = diffContext3.getImageData(0, 1, 2, diffHeight3); // BEHOLD
-    //*** behold */
-/*     diffContext3.globalCompositeOperation = 'source-over';
-    diffContext3.drawImage(video, 0, 0, diffWidth3, diffHeight3);
- */
 
     if (isReadyToDiff) {     
         // Canvas 1 (Filter):
@@ -355,33 +311,6 @@ function capture() {
  var diff3 = processDiff3(diffImageData3);
  // this is where you place the grid on the canvas
 
-/*  // The values inside the following line must be the same as in:  
- // var diffImageData3 = diffContext3.getImageData(1, 0, diffWidth3, diffHeight3); // BEHOLD.
- // Those values will give only one line of pixels on the canvas:   motionContext3.putImageData(diffImageData3, 1, 1);
- motionContext3.putImageData(diffImageData3, 0, 1);
- if (diff3.motionBox) {
-     motionContext3.strokeStyle = '#fff';
-     motionContext3.strokeRect(
-         diff3.motionBox.x.min + 0.5,
-         diff3.motionBox.y.min + 0.5,
-         diff3.motionBox.x.max - diff3.motionBox.x.min,
-         diff3.motionBox.y.max - diff3.motionBox.y.min
-     );
- }
- captureCallback3({
-     imageData3: captureImageData3,
-     // score3 her for å gi monitoring i HTMLen (husk også å legge til i diffcam1.js )
-     score3: diff3.score,
-     hasMotion3: diff3.score >= 2,
-     motionBox: diff3.motionBox,
-     motionPixels: diff3.motionPixels,
- getURL: function() {
-     return getCaptureUrl(this.imageData3);
- },
- checkMotionPixel: function(x, y) {
-     return checkMotionPixel(this.motionPixels, x, y)
- }      	            
- }); */
 
     }
     }
@@ -426,14 +355,9 @@ function capture() {
             // This is where any value can be controlled by the number "i".
             console.log(xValue);
             phaser.frequency.value = xValue;
-            pingPong.delayTime.value = i;
+          //  pingPong.delayTime.value = i;
             pingPong.feedback.value = yNormValue;
-/*             let chebyValue = Math.floor((xValue / 10) * 100);
-            cheby.order = chebyValue;
-            shift.frequency.value = xValue * 50; */
 
-
-           //phaser.baseFrequency.rampTo(xValue, 0.2);
            console.log(i);
 
            if (i == 56)
@@ -521,17 +445,7 @@ function capture() {
                 gainSynth1.disconnect(pingPong);
 
 
-            else if (i == 16)
-                document.getElementById("fx2on").innerHTML =
-                "on",
-                document.getElementById("fx1on").innerHTML =
-                "",
-                document.getElementById("fx3on").innerHTML =
-                "",
 
-
-                gainSynth1.disconnect(phaser),
-                gainSynth1.disconnect(pingPong);
             else if (i == 12)
                 document.getElementById("fx3on").innerHTML =
                 "on",
@@ -627,105 +541,6 @@ function capture() {
 			motionPixels: motionPixels
         };
 	}
-
-
-
-/* 
-
-    // CANVAS 3 PROCESSING DIFF
-// The second one is the X axis, currently controlling pitch
-function processDiff3(diffImageData3) {
-		
-    var rgba = diffImageData3.data;
-    // pixel adjustments are done by reference directly on diffImageData
-    var score = 0;
-    var motionPixels = includeMotionPixels3 ? [] : undefined;
-    var motionBox = undefined;
-
-    for (var i = 0; 
-        i < rgba.length; i += 4) {
-        var pixelDiff = rgba[i] * 0.9 + rgba[i + 1] * 0.3 + rgba[i + 2] * 0.3;
-        var normalized = Math.min(255, pixelDiff * (50 / pixelDiffThreshold));
-        rgba[i] = normalized; // rød
-        rgba[i + 1] = normalized; // grønn
-        rgba[i + 2] = 0; // blå
-        rgba[i + 3] = normalized // lysstyrke
-    
-        if (pixelDiff >= pixelDiffThreshold) {
-            score++;
-            coords = calculateCoordinates(i / 4);
-            if (includeMotionBox3) {
-                motionBox = calculateMotionBox(motionBox, coords.x, coords.y);
-            }
-            if (includeMotionPixels3) {
-                motionPixels = calculateMotionPixels(motionPixels, coords.x, coords.y, pixelDiff);			
-            }
-
-// skriv in ting her
-            
-//console.log(i);
-// i vaues from left to right: 28, 24, 20, 16, 12, 8, 5
-            if (i == 20)
-                document.getElementById("fx1on").innerHTML =
-                "",
-                document.getElementById("fx1off").innerHTML =
-                "off",
-                gainSynth1.disconnect(phaser);
-
-
-            else if (i == 16)
-                document.getElementById("fx2on").innerHTML =
-                "",
-                document.getElementById("fx2off").innerHTML =
-                "off",
-                gainSynth1.disconnect(shift);
-            else if (i == 12)
-                document.getElementById("fx3on").innerHTML =
-                "",
-                document.getElementById("fx3off").innerHTML =
-                "off",
-                gainSynth1.disconnect(pingPong);
-        
-                  
-            else if (i == 8)
-            document.getElementById("scale1on").innerHTML =
-            "Pentatone scale",
-            document.getElementById("scale2on").innerHTML =
-            "",
-            document.getElementById("scale3on").innerHTML =
-            "",
-            scaleSelect = ["G#1", "A#1","C#2", "D#2", "F#2", "G#2", "A#2","C#3", "D#3", "F#3", "G#3", "A#3","C#4", "D#4", "F#4", "G#4", "A#4", "C#5", "D#5", "F#5", "G#5", "A#5", "C#6"];
-              
-            else if (i == 4)
-            document.getElementById("scale2on").innerHTML =
-            "Whole tone scale",
-            document.getElementById("scale1on").innerHTML =
-            "",
-            document.getElementById("scale3on").innerHTML =
-            "",
-             scaleSelect = ["C2", "D2", "E2", "Gb2", "Ab2", "Bb2", "C3", "D3", "Gb3", "Ab3", "Bb3", "C4", "D4", "E4", "Gb4", "Ab4", "Bb4", "C5", "D5", "E5", "Gb5", "Ab5", "Bb5", "C6"];
-            
-            else if (i == 0)
-            document.getElementById("scale3on").innerHTML =
-            "Diatonic scale",
-            document.getElementById("scale2on").innerHTML =
-            "",
-            document.getElementById("scale1on").innerHTML =
-            "",
-             scaleSelect = ["C2", "D2", "E2", "F2", "G2", "A2", "B2", "C3", "D3", "E3", "F3", "G3", "A3", "B3", "C4", "D4", "E4", "F4", "G4", "A4", "B4", "C5", "D5", "E5", "F5"];
-              
-
-        }
-    }
-    return {
-        score: score,
-        motionBox: score > scoreThreshold ? motionBox : undefined,
-        motionPixels: motionPixels
-    };
-} */
-
-
-
 
 
 
