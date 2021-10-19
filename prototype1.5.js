@@ -58,20 +58,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
     // deafault synth:
     const synth1 = new Tone.MonoSynth({
         oscillator: {
-            type: "sine2"
+            type: "square2"
         },
         envelope: {
-            attack: 0.5,
+            attack: 0.9,
             decay: 0.3,
-            sustain: 1.0,
-            release: 0.8
+            sustain: 0.5,
+            release: 0.3
         }
-    });
+    }).connect(gainSynth1);
     
     const synth2 = new Tone.Sampler({
         urls: {
-          Ab3: "samples/2Ab3.mp3",
-          Ab2: "samples/2Ab2.mp3",
+            Ab3: "samples/Ab3.mp3",
+            Db3: "samples/Db3.mp3",
         },
       
       
