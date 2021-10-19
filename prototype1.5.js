@@ -50,9 +50,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
     //const shift = new Tone.FrequencyShifter().connect(gainNode);
     
     // devide four effects by four to not exceed 100
-    pingPong.wet.value = 1;
+    pingPong.wet.value = 0.5;
     //cheby.wet.value = 1;
-    phaser.wet.value = 1;
+    phaser.wet.value = 0.5;
     //shift.wet.value = 1;
 
     // deafault synth:
@@ -61,7 +61,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
             type: "sine9"
         },
         envelope: {
-            attack: 0.9,
+            attack: 0.1,
             decay: 0.3,
             sustain: 0.5,
             release: 0.3
@@ -69,6 +69,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
     }).connect(gainSynth1);
     
     const synth2 = new Tone.Sampler({
+        volume: -19,
         urls: {
             Ab3: "samples/Ab3.mp3",
             Db3: "samples/Db3.mp3",
