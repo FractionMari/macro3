@@ -512,8 +512,9 @@ function capture() {
             document.getElementById("instr3on").innerHTML =
             "",
             synth2.connect(gainSynth1),
-            synth3.disconnect(gainSynth1),
-            synth1.disconnect(gainSynth1);
+            synth1.disconnect(gainSynth1),
+            synth3.disconnect(gainSynth1);
+            
     
             else if (i == 0)
             document.getElementById("instr3on").innerHTML =
