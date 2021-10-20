@@ -72,63 +72,63 @@
   position: absolute;
   top: 460px;
   left: 135px;
-  font-size: 15px;
+  font-size: 20px;
 }
 
 #fx2 {
   position: absolute;
   top: 460px;
   left: 240px;
-  font-size: 15px;
+  font-size: 20px;
 }
 
 #fx3 {
   position: absolute;
   top: 460px;
   left: 355px;
-  font-size: 15px;
+  font-size: 20px;
 }
 
 #fx1on {
   position: absolute;
   top: 400px;
   left: 135px;
-  font-size: 30px;
+  font-size: 35px;
 }
 
 #fx2on {
   position: absolute;
   top: 400px;
   left: 240px;
-  font-size: 30px;
+  font-size: 35px;
 }
 
 #fx3on {
   position: absolute;
   top: 400px;
   left: 355px;
-  font-size: 30px;
+  font-size: 35px;
 }
 
 #instr1on1 {
   position: absolute;
   top: 400px;
   left: 460px;
-  font-size: 30px;
+  font-size: 35px;
 }
 
 #instr3on1 {
   position: absolute;
   top: 400px;
   left: 680px;
-  font-size: 30px;
+  font-size: 35px;
 }
 
 #instr1on {
   position: absolute;
   top: 460px;
   left: 460px;
-  font-size: 15px;
+  font-size: 20px;
   width: 50px;
 }
 
@@ -136,7 +136,7 @@
   position: absolute;
   top: 460px;
   left: 575px;
-  font-size: 15px;
+  font-size: 20px;
   width: 50px;
 
 }
@@ -144,7 +144,7 @@
   position: absolute;
   top: 460px;
   left: 680px;
-  font-size: 15px;
+  font-size: 20px;
   width: 50px;
 }
 
@@ -276,7 +276,9 @@
 
 body {
 	margin: 20px;
-  font-family: "Lucida Console", Monaco, monospace;
+  font: 1.5em/1.2 sans-serif;
+  font-family: 'Turret Road', cursive;
+  /* font-family: "Lucida Console", Monaco, monospace; */
   font-weight: 900;
 	text-align: center;
   background-color: black;
