@@ -151,7 +151,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
         } */
       });
 
-    const synth5 = new Tone.MembraneSynth({
+    const synth5 = new Tone.Sampler({
         urls: {
             C1: "samples/C1kick.mp3",
             E1: "samples/E1snare.mp3",
