@@ -162,7 +162,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
     // Hi hat:
     const synth6 = new Tone.Sampler({
         urls: {
-            C1: "samples/Bb1hat.mp3",
+            C1: "samples/C1hat.mp3",
         },
     
     
