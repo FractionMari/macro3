@@ -63,7 +63,7 @@
 
 #synthNote  {
   position: absolute;
-  top: 20px;
+  top: 400px;
   right: 0px;
   font-size: 40px;
 }
@@ -235,10 +235,18 @@
 
 @keyframes myAnimation{
   0%{
-    opacity: 0.9;
+    opacity: 1;
     transform: rotateX(90deg);
   }
+  10%{
+    opacity: 1;
+    transform: rotateX(0deg);
+  }
   50%{
+    opacity: 0.9;
+
+  }
+  80%{
     opacity: 0.5;
     transform: rotateX(0deg);
   }
@@ -510,6 +518,7 @@ button:hover {
 
 
 #helpButton {
+
   padding: 10px 10px;
   width: 50px;
   height: 50px;
@@ -522,17 +531,18 @@ button:hover {
 }
 
 .content {
+
+  z-index: 2;
   padding: 18px;
   display: none;
   float: inline-end;
   overflow: hidden;
-  color:rgb(255, 255, 255);
   font-size: 17px;
   font-variant: normal;
   text-align: left;
   margin: 0 auto;
   width: auto;
-  max-width:300px;
+
   height: auto;
   background: rgb(0, 0, 0);
   color: #00ff00; 
@@ -544,6 +554,7 @@ button:hover {
   text-align: left;
   vertical-align: middle;    
 }
+
 
 .topnav {
   overflow: hidden;
