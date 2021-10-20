@@ -131,7 +131,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 
       // melody synth: 
       let synth4 = new Tone.Synth({
-        volume: 1,
+        volume: -9,
         oscillator: {
             type: "sine7"
         },
@@ -152,26 +152,21 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
       });
 
     const synth5 = new Tone.MembraneSynth({
-        envelope: {
-            attack: 0.9,
-            decay: 0.6,
-            sustain: 0.4,
-            release: 0.5,
-          },
-       volume: -7
+        urls: {
+            C1: "samples/C1kick.mp3",
+            E1: "samples/E1snare.mp3",
+        },
+    
     }).connect(gainNode);
 
     // Hi hat:
-    const synth6 = new Tone.MetalSynth({
-        envelope: {
-            attack: 0.1,
-            decay: 0.2,
-            sustain: 0.1,
-            release: 0.1,
-          },
-       volume: -15,
-    }
-    ).connect(gainNode);
+    const synth6 = new Tone.Sampler({
+        urls: {
+            C1: "samples/Bb1hat.mp3",
+        },
+    
+    
+    }).connect(gainNode);
 
 
     let synth7 = new Tone.DuoSynth({
