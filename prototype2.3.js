@@ -1018,14 +1018,18 @@ function initSuccess(requestedStream) {
     synth4.triggerAttackRelease(note, 0.3, time);
     // subdivisions are given as subarrays
 }, randomMelodyArray).start(0);
+seq4.playbackRate = 0.5;
 
+pattern6.playbackRate = 0.5;
    const pattern6 = new Tone.Sequence(function(time, note){
     synth6.triggerAttackRelease(note, 0.9);
     }, randomHiHatArray).start();
+    
   
     const pattern5 = new Tone.Sequence(function(time, note){
     synth5.triggerAttackRelease(note, 0.9);
     }, randomDrumArray).start();
+    pattern5.playbackRate = 0.5;
 
     
     
