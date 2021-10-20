@@ -110,29 +110,44 @@
   font-size: 30px;
 }
 
-
-#instr1on {
+#instr1on1 {
   position: absolute;
   top: 400px;
   left: 460px;
-  font-size: 20px;
+  font-size: 30px;
+}
+
+#instr3on1 {
+  position: absolute;
+  top: 400px;
+  left: 680px;
+  font-size: 30px;
+}
+
+#instr1on {
+  position: absolute;
+  top: 460px;
+  left: 460px;
+  font-size: 15px;
   width: 50px;
 }
 
 #instr2on  {
   position: absolute;
-  top: 400px;
+  top: 460px;
   left: 575px;
-  font-size: 20px;
+  font-size: 15px;
   width: 50px;
+
 }
 #instr3on  {
   position: absolute;
-  top: 400px;
+  top: 460px;
   left: 680px;
-  font-size: 20px;
+  font-size: 15px;
   width: 50px;
 }
+
 
 
 #scale1on {
@@ -172,9 +187,9 @@
 
 .rect_instr {
   position: absolute;
-  top: 310px;
+  top: 360px;
   left: 440px;
-  height: 200px;
+  height: 145px;
   width: 330px;
   background-color: #00e1ff27;
   font-size: 45px;
@@ -184,12 +199,12 @@
 
 .rect_fx {
   position: absolute;
-  top: 310px;
+  top: 360px;
   left: 105px;
-  height: 200px;
+  height: 145px;
   width: 330px;
   background-color: #00e1ff27;
-  font-size: 70px;
+  font-size: 45px;
   text-align: center;
   color:rgba(0, 0, 0, 0.199);
 }

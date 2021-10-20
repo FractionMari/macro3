@@ -496,11 +496,11 @@ function capture() {
              } 
              
              if (i == 8) {
-            document.getElementById("instr1on").innerHTML =
-            "Synth 1: on";
+            document.getElementById("instr1on1").innerHTML =
+            "on";
             document.getElementById("instr2on").innerHTML =
             "";
-            document.getElementById("instr3on").innerHTML =
+            document.getElementById("instr3on1").innerHTML =
             "";
 
             synth1.connect(gainSynth1);
@@ -525,11 +525,11 @@ function capture() {
         } 
         
         else if (i == 0){
-            document.getElementById("instr3on").innerHTML =
-            "Synth3: on";
+            document.getElementById("instr3on1").innerHTML =
+            "on";
             document.getElementById("instr2on").innerHTML =
             "";
-            document.getElementById("instr1on").innerHTML =
+            document.getElementById("instr1on1").innerHTML =
             "";
             synth3.connect(gainSynth1);
             
