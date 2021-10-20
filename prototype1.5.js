@@ -493,22 +493,24 @@ function capture() {
                 gainSynth1.disconnect(phaser);
 
             // instruments on:
-             } if (i == 8) {
+             } 
+             
+             if (i == 8) {
             document.getElementById("instr1on").innerHTML =
-            "Synth1: on";
+            "Synth 1: on";
             document.getElementById("instr2on").innerHTML =
             "";
             document.getElementById("instr3on").innerHTML =
             "";
-            console.log("før synth connect");
-            synth1.connect(gainSynth1);
-            console.log("mellom 1 disconnect");
-            synth2.disconnect(gainSynth1);
-            console.log("mellom 2 disconnect");
-            synth3.disconnect(gainSynth1);
-            console.log("etter synth connect");
 
-        } else if (i == 4) {
+            synth1.connect(gainSynth1);
+
+            // synth2.disconnect(gainSynth1);
+
+            synth3.disconnect(gainSynth1); 
+
+
+/*         } else if (i == 4) {
             document.getElementById("instr2on").innerHTML =
             "Synth2: on";
             document.getElementById("instr1on").innerHTML =
@@ -516,11 +518,13 @@ function capture() {
             document.getElementById("instr3on").innerHTML =
             "";
             synth2.connect(gainSynth1);
-            synth1.disconnect(gainSynth1);
-            synth3.disconnect(gainSynth1);
+
+            synth3.disconnect(gainSynth1); */
 
     
-        } else if (i == 0){
+        } 
+        
+        else if (i == 0){
             document.getElementById("instr3on").innerHTML =
             "Synth3: on";
             document.getElementById("instr2on").innerHTML =
@@ -528,8 +532,9 @@ function capture() {
             document.getElementById("instr1on").innerHTML =
             "";
             synth3.connect(gainSynth1);
-            synth2.disconnect(gainSynth1);
+            
             synth1.disconnect(gainSynth1);
+
         }
             
 
