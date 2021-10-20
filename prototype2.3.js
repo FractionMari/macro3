@@ -208,7 +208,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 
 
 
-    gainNode.gain.value = 0.5;
+    gainNode.gain.value = 0.1;
     
 
 //Tone.Transport.bpm.value = 40;
