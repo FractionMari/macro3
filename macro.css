@@ -21,42 +21,42 @@
 }
 #synth1on1 {
   position: absolute;
-  top: 305px;
+  top: 430px;
   left: 135px;
-  font-size: 100px;
+  font-size: 35px;
 }
 #synth1on0 {
   position: absolute;
-  top: 305px;
+  top: 430px;
   left: 240px;
-  font-size: 100px;
+  font-size: 35px;
 }
 
 
 #synth2on1 {
   position: absolute;
-  top: 305px;
+  top: 430px;
   left: 355px;
-  font-size: 100px;
+  font-size: 35px;
 }
 #synth2on0 {
   position: absolute;
-  top: 305px;
+  top: 430px;
   left: 460px;
-  font-size: 100px;
+  font-size: 35px;
 }
 
 #synth3on1 {
   position: absolute;
-  top: 305px;
+  top: 430px;
   left: 575px;
-  font-size: 100px;
+  font-size: 35px;
 }
 #synth3on0 {
   position: absolute;
-  top: 305px;
+  top: 430px;
   left: 680px;
-  font-size: 100px;
+  font-size: 35px;
 }
 
 /* Macro app 1 monitoring: */
@@ -185,6 +185,42 @@
   color:rgba(0, 0, 0, 0.199);
 } */
 
+.rect_synth1 {
+  position: absolute;
+  top: 415px;
+  left: 105px;
+  height: 100px;
+  width: 220px;
+  background-color: #00e1ff27;
+  font-size: 45px;
+  text-align: center;
+  color:rgba(0, 0, 0, 0.199);
+}
+
+.rect_synth2 {
+  position: absolute;
+  top: 415px;
+  left: 330px;
+  height: 100px;
+  width: 220px;
+  background-color: #00e1ff27;
+  font-size: 45px;
+  text-align: center;
+  color:rgba(0, 0, 0, 0.199);
+}
+
+.rect_mel {
+  position: absolute;
+  top: 415px;
+  left: 555px;
+  height: 100px;
+  width: 220px;
+  background-color: #00e1ff27;
+  font-size: 45px;
+  text-align: center;
+  color:rgba(0, 0, 0, 0.199);
+}
+
 .rect_instr {
   position: absolute;
   top: 360px;
@@ -268,7 +304,7 @@
   color:rgb(255, 255, 255);
   
     animation-name: myAnimation;
-    animation-duration: 35000ms;
+    animation-duration: 20ms;
     animation-fill-mode: forwards;
 
 }

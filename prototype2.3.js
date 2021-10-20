@@ -46,8 +46,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
         gain: 0.1,
     }).connect(reverb);
 
+   
     // bass
-    const synth0 = new Tone.AMSynth({
+    let synth0 = new Tone.AMSynth({
         volume: -9,
         oscillator: {
           type: "sine9"
@@ -55,7 +56,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
     });
 
     // harmony
-    const synth = new Tone.DuoSynth({
+    let synth = new Tone.DuoSynth({
         volume: -19,
         voice0: {
             oscillator: {
@@ -85,8 +86,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 
 
 
-      })
-    const synth2 = new Tone.Synth({
+      });
+    let synth2 = new Tone.Synth({
         volume: -9,
         oscillator: {
           type: "sine3"
@@ -129,7 +130,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
       });
 
       // melody synth: 
-      const synth4 = new Tone.Synth({
+      let synth4 = new Tone.Synth({
         volume: 1,
         oscillator: {
             type: "sine7"
@@ -173,6 +174,40 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
     ).connect(gainNode);
 
 
+    let synth7 = new Tone.DuoSynth({
+      volume: -19,
+      voice0: {
+          oscillator: {
+              type: "fmsawtooth",
+
+            },
+          envelope: {
+              attack: 0.9,
+              decay: 0.3,
+              sustain: 1,
+              release: 0.9,
+          },
+          filter: {
+              Q: 17,
+              frequency: 850,
+
+          },
+      },
+
+      voice1: {
+          oscillator: {
+              type: "pulse",
+
+            },
+
+      },
+
+
+
+    }).connect(gainNode);
+
+
+
     gainNode.gain.value = 0.5;
     
 
@@ -194,21 +229,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
  // const notes2 = [-5, -3, -2,  0, 2, 3]; 
  // const notes3 = [-15 ,-13, -12, -10, -8 , -7]; 
 // diatonic scales 
-const notes3 = [6, 8, 9, 11, 13, 14]; 
-const notes2 = [-4, -3, -1,  1, 2, 4]; 
-const notes = [-18, -16, -15 ,-13, -11, -10, -8 , -6]; 
+const notes3 = [6, 8, 10, 11, 13, 15]; 
+const notes2 = [-4, -2, -1,  1, 3, 5]; 
+const notes = [-18, -16, -14 ,-13, -11, -9, -7, -6];
 
-const notes3_1 = [5, 7, 8, 10, 12, 13]; 
-const notes2_1 = [-5, -4, -2,  0, 1, 3]; 
-const notes_1 = [-19, -17, -16 ,-14, -12, -11, -9 , -7]; 
 
-const pentaNotes3 = [4, 7, 9, 12, 14, 16]; 
-const pentaNotes2 = [-7, -5 , -3, 0,  2, 4, 7]; 
-const pentaNotes = [-19, -17, -15, -12 ,-10, -7, -5, -3 ,0]; 
+
+const notes3_1 = [5, 7, 9, 10, 12, 14]; 
+const notes2_1 = [-5, -3, -2,  0, 2, 4]; 
+const notes_1 = [-19, -17, -15 ,-14, -12, -10, -8 ,-7]; 
+
+const pentaNotes3 = [3, 6, 8, 11, 13, 15]; 
+const pentaNotes2 = [-8, -6 , -4, -1,  1, 3, 6]; 
+const pentaNotes = [-20, -18, -16, -13 ,-11, -8, -6, -4 ,-1]; 
+
+const pentaNotes6 = [7, 9, 12, 14, 16, 19]; 
+const pentaNotes5 = [-0, -2 , 4, 7,  9, 12]; 
+const pentaNotes4 = [-17, -15, -12 ,-10, -8, -5, -3 , 0]; 
 
 const wholeNotes3 = [10, 12, 14, 16, 18, 20]; 
 const wholeNotes2 = [-2 , 0, 2,  4, 6, 8]; 
 const wholeNotes = [-20 ,-18, -16, -14, -12 ,-10]; 
+
+const wholeNotes6 = [11, 13, 15, 17, 19, 21]; 
+const wholeNotes5 = [-1 , 1, 3,  5, 7, 9]; 
+const wholeNotes4 = [-21 ,-19, -17, -15, -13 ,-11]; 
+
+// harmonic scales
+const harmNotes3 = [8, 9, 12, 14, 16, 17, 18];
+const harmNotes2 = [-2, -1, 2, 4, 6, 7, 8];
+const harmNotes = [-12, -11, -8, -6, -4, -3, -2]
 
 
 
@@ -219,6 +269,7 @@ const wholeNotes = [-20 ,-18, -16, -14, -12 ,-10];
   let randomArray = [];
   let randomArray2 = [];
   let randomArray3 = [];
+  let randomArray6 = [];
   let randomHiHatArray = [];
   let randomDrumArray = [];
   let randomMelodyArray = [];
@@ -226,31 +277,121 @@ const wholeNotes = [-20 ,-18, -16, -14, -12 ,-10];
      function getRandomInt(max) {
         return Math.floor(Math.random() * max);
       }
-      const random0 = getRandomInt(15) + 2;
-      const randomScale = getRandomInt(4);
-      const randomTimbre = getRandomInt(4);
-      const randomTempo = getRandomInt(5);
 
-      if (randomTimbre == 0) 
+      function getRandomInt2(max) {
+        return Math.floor(Math.random() * max);
+      }
+
+      const random0 = getRandomInt(15) + 2;
+      const randomScale = getRandomInt(14);
+      const randomTimbre = getRandomInt2(8);
+      const randomTimbre2 = getRandomInt2(8);
+      const randomTimbre3 = getRandomInt2(8);
+      const randomTempo = getRandomInt(12);
+
+      if ((randomTimbre == 0) || ( randomTimbre == 7 ))
       synth4.oscillator.type = "fmsine";
-      if (randomTimbre == 1) 
+      else if ((randomTimbre == 1) || ( randomTimbre == 6 ))
       synth4.oscillator.type = "pwm";
-      if (randomTimbre == 2) 
+      else if ((randomTimbre == 2) || ( randomTimbre == 5 ))
       synth4.oscillator.type = "pulse";
-      else
-      synth4.oscillator.type = "amsawtooth4";
+      else if ((randomTimbre == 3) || ( randomTimbre == 4 ))
+      synth4 = new Tone.Sampler({
+        urls: {
+          Ab3: "samples/2Ab3.mp3",
+          Ab2: "samples/2Ab2.mp3",
+        },
+      
+      
+      });
       //console.log(randomTimbre, synth4.oscillator.type);
 
-      if (randomTempo == 0) 
+      if ((randomTimbre2 == 0) || ( randomTimbre2 == 7 ))
+      synth = new Tone.Sampler({
+          urls: {
+              A1: "A1.mp3",
+              A2: "A2.mp3",
+          },
+          baseUrl: "https://tonejs.github.io/audio/casio/",
+      
+      }),
+      
+      synth0 = new Tone.Sampler({
+          urls: {
+              A1: "A1.mp3",
+              A2: "A2.mp3",
+          },
+          baseUrl: "https://tonejs.github.io/audio/casio/",
+      
+      });
+      
+      else if ((randomTimbre2 == 1) || ( randomTimbre2 == 6 ))
+      synth = new Tone.Sampler({
+          urls: {
+              Ab3: "samples/Ab3.mp3",
+              Db3: "samples/Db3.mp3",
+          },
+      
+      
+      }),
+      
+      synth0 = new Tone.Sampler({
+          urls: {
+              Ab3: "samples/Ab3.mp3",
+              Db3: "samples/Db3.mp3",
+          },
+      
+      
+      });
+      else if ((randomTimbre2 == 2) || ( randomTimbre2 == 5 ))
+      synth = new Tone.Sampler({
+          urls: {
+              Ab3: "samples/2Ab3.mp3",
+              Ab2: "samples/2Ab2.mp3",
+          },
+      
+      
+      }),
+      
+      synth0 = new Tone.Sampler({
+          urls: {
+              Ab3: "samples/2Ab3.mp3",
+              Ab2: "samples/2Ab2.mp3",
+          },
+      
+      
+      });
+      else if ((randomTimbre2 == 3) || ( randomTimbre2 == 4 ))
+      synth = new Tone.Sampler({
+          urls: {
+              G1: "samples/3G1.mp3",
+              G2: "samples/3G2.mp3",
+          },
+      
+      
+      }),
+      
+      synth0 = new Tone.Sampler({
+          urls: {
+              G1: "samples/3G1.mp3",
+              G2: "samples/3G2.mp3",
+          },
+      
+      
+      });
+      //console.log(randomTimbre, synth4.oscillator.type);
+      
+      if ((randomTempo == 0) || ( randomTempo == 5 ))
       Tone.Transport.bpm.value = 40;
-      if (randomTempo == 1) 
-      Tone.Transport.bpm.value = 40;
-      if (randomTempo == 2) 
-      Tone.Transport.bpm.value = 80;
-      if (randomTempo == 3) 
-      Tone.Transport.bpm.value = 120;
-      if (randomTempo == 4) 
-      Tone.Transport.bpm.value = 60;
+        else if ((randomTempo == 1) || ( randomTempo == 6 ))
+        Tone.Transport.bpm.value = 60;
+        else if ((randomTempo == 2) || ( randomTempo == 7 ))
+        Tone.Transport.bpm.value = 90;
+        else if ((randomTempo == 3) || ( randomTempo == 8 ))
+        Tone.Transport.bpm.value = 120;
+        else if ((randomTempo == 4) || ( randomTempo == 9 ))
+        Tone.Transport.bpm.value = 50;
+        
 
 
       document.getElementById("timeSign").innerHTML =
@@ -263,32 +404,55 @@ const wholeNotes = [-20 ,-18, -16, -14, -12 ,-10];
       let scaleNotes2 = [];
       let scaleNotes3 = [];
 
-      if (randomScale == 0)
+      if ((randomScale == 0) || ( randomScale == 13 ))
       scaleNotes = pentaNotes,
       scaleNotes2 = pentaNotes2,
       scaleNotes3 = pentaNotes3,
       document.getElementById("scale").innerHTML =
       "Scale: pentatone";
-      if (randomScale == 1)
+      else if ((randomScale == 1) || ( randomScale == 12 ))
       scaleNotes = wholeNotes,
       scaleNotes2 = wholeNotes2,
       scaleNotes3 = wholeNotes3,
       document.getElementById("scale").innerHTML =
       "Scale: wholetone";
-      if (randomScale == 2)
+      else if ((randomScale == 2) || ( randomScale == 11 ))
       scaleNotes = notes_1,
       scaleNotes2 = notes2_1,
       scaleNotes3 = notes3_1,
       document.getElementById("scale").innerHTML =
       "Scale: diatonic2";
-      else
+      else if ((randomScale == 3) || ( randomScale == 10 ))
+      scaleNotes = harmNotes,
+      scaleNotes2 = harmNotes2,
+      scaleNotes3 = harmNotes3,
+      document.getElementById("scale").innerHTML =
+      "Scale: double harmonic";
+    
+      else if ((randomScale == 4) || ( randomScale == 9 ))
       scaleNotes = notes,
       scaleNotes2 = notes2,
       scaleNotes3 = notes3,
       document.getElementById("scale").innerHTML =
       "Scale: diatonic";
+    
+      else if ((randomScale == 5) || ( randomScale == 8 ))
+      scaleNotes = wholeNotes4,
+      scaleNotes2 = wholeNotes5,
+      scaleNotes3 = wholeNotes6,
+      document.getElementById("scale").innerHTML =
+      "Scale: wholetone2";
       //console.log(random0);
-      //console.log(randomScale);
+      
+    
+      else if ((randomScale == 6) || ( randomScale == 7 ))
+      scaleNotes = pentaNotes4,
+      scaleNotes2 = pentaNotes5,
+      scaleNotes3 = pentaNotes6,
+      document.getElementById("scale").innerHTML =
+      "Scale: pentatone2";
+      //console.log(random0);
+      
 
 
 
@@ -313,28 +477,53 @@ const wholeNotes = [-20 ,-18, -16, -14, -12 ,-10];
      randomArray3.push(random3);
      
 
+     const randomNote6 = () => scaleNotes[Math.random() * scaleNotes.length | 0]; 
+     let random6 = freq(randomNote6());
+     randomArray6.push(random6);
+
+
      let random4 = getRandomInt(10);
      let random5 = getRandomInt(14);
      let randomMelody = getRandomInt(14);
 
-      if (random4 > 4)
-      randomHiHatArray.push(("C1 C1").split(" ")),
-      randomMelodyArray.push(random);
-      if (random4 == 1)
-      randomHiHatArray.push(("C1 C1").split(" ")),
-      randomMelodyArray.push((0 + " " + random).split(" "));
-      else
-      randomHiHatArray.push("C1"),
-      randomMelodyArray.push((random + " " + random + " " + random).split(" "));
 
-      if (random5 > 10)
-      randomDrumArray.push(("C1 C1").split(" "));
-      if (random5 == 1)
-      randomDrumArray.push(("C1 C1 C1").split(" "));
-      if (random5 > 8)
-      randomDrumArray.push("F2");
-      else
-      randomDrumArray.push("C1")
+     if (random4 < 4)
+     randomHiHatArray.push(("C1 C1").split(" ")),
+     randomMelodyArray.push(random);
+     if (random4 == 1)
+     randomHiHatArray.push(("C1 C1").split(" ")),
+     randomMelodyArray.push((0 + " " + random).split(" "));
+     if (random4 > 7)
+     randomHiHatArray.push(("C2 C2").split(" ")),
+     randomMelodyArray.push((random + " " + random6).split(" "));
+
+     if (random4 == 6)
+     randomHiHatArray.push("C1"),
+     randomMelodyArray.push(random6);
+
+     if (random4 == 5)
+     randomHiHatArray.push("C1"),
+     randomMelodyArray.push((random6 + " " + random6).split(" "));
+
+     if (random4 == 4)
+     randomHiHatArray.push(("C1").split(" ")),
+     randomMelodyArray.push((random + " " + random2).split(" "));
+
+     else
+     randomHiHatArray.push("C1"),
+     randomMelodyArray.push((random + " " + random2 + " " + random6).split(" "));
+
+     if (random5 > 10)
+     randomDrumArray.push(("C1 C1").split(" "));
+     if (random5 == 1)
+     randomDrumArray.push(("C1 C1 C1").split(" "));
+     if (random5 > 8)
+     randomDrumArray.push("F2");
+     if (random5 > 4)
+     randomDrumArray.push(("C1 F2").split(" "));
+     else
+     randomDrumArray.push("C1")
+
 
   };
 
