@@ -304,7 +304,7 @@
   color:rgb(255, 255, 255);
   
     animation-name: myAnimation;
-    animation-duration: 20ms;
+    animation-duration: 35000ms;
     animation-fill-mode: forwards;
 
 }
