@@ -80,8 +80,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 
       const synth3 =  new Tone.Sampler({
         urls: {
-            G1: "samples/3G1.mp3",
-            G2: "samples/3G2.mp3",
+            G1: "samples/4G1.wav",
+            G2: "samples/4G2.wav",
         },
     
     });
