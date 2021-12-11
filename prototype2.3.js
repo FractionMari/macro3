@@ -1,6 +1,9 @@
-// This code is based on examples from the Diff Cam Engine:
+// This is the third iteration of the Macro apps that were developed by Mari Lesteberg
+// as a part of a Master's thesis in 2021. The apps use motion in the air to produce 
+// sound and music. The motion capture engine is based on examples from the Diff Cam Engine:
 // https://github.com/lonekorean/diff-cam-engine
-// Licence:
+// Diffcam Engine Licence:
+
 
 /* Copyright (c) 2016 Will Boyd
 
@@ -22,16 +25,35 @@ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-// Denne versjonen er fra 27. mai 2021. Ryddet og stablet.
-// 18. mai: Forsøker å få det til å låte smoothere.Trigger attack-release i stedet for en kontinuerlig tone.
+/* 
 
-// 9. sept 2021: Forbedrer det lydlige
-// Tone JS variables:
+MIT License
 
+Copyright (c) 2021 Mari Lesteberg
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.*/
     
     ///////// TONE.JS VARIABLES ///////////
-    const gainNode = new Tone.Gain().toDestination();
 
+    // gain and effects:
+    const gainNode = new Tone.Gain().toDestination();
+    gainNode.gain.value = 0.1;
     const pingPong = new Tone.PingPongDelay().connect(gainNode);
 
     pingPong.wet.value = 0.2;
@@ -87,6 +109,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 
 
       });
+
+      // synth 2
     let synth2 = new Tone.Synth({
         volume: -9,
         oscillator: {
@@ -107,7 +131,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
           octaves: 4
         } */
       });
-  //  const synth3 = new Tone.PluckSynth();
+
+  //  synth 3
     const synth3 = new Tone.Synth({
         volume: -9,
         oscillator: {
@@ -151,6 +176,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
         } */
       });
 
+// Kick and snare drum
     const synth5 = new Tone.Sampler({
         urls: {
             C1: "samples/C1kick.mp3",
@@ -168,7 +194,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
     
     }).connect(gainNode);
 
-
+// synth 7
     let synth7 = new Tone.DuoSynth({
       volume: -19,
       voice0: {
@@ -194,46 +220,34 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
               type: "pulse",
 
             },
-
       },
-
-
 
     }).connect(gainNode);
 
 
 
-    gainNode.gain.value = 0.1;
-    
-
-//Tone.Transport.bpm.value = 40;
 
 
+  ////////////////////////////
+  // Random tone generator  //
+  ////////////////////////////
 
-  // Random tone generator 
+  // Inspiration to the Random tone generator is taken from this 
+  // thread: https://codereview.stackexchange.com/questions/203209/random-tone-generator-using-web-audio-api
+ 
+// algorithm for converting an integer to a note frequency (source: https://codereview.stackexchange.com/questions/203209/random-tone-generator-using-web-audio-api):
+const freq = note => 2 ** (note / 12) * 440; 
 
-  // Defining frequencies
-
-  const freq = note => 2 ** (note / 12) * 440; 
-// // pentatone scales:
-
- // const notes = [4, 7, 9, 12, 14, 16]; 
- // const notes2 = [-5 , -3, 0,  4, 7, 9]; 
- // const notes3 = [-13 ,-10, -8, -5, -3 ,0]; 
- // const notes = [4, 6, 8, 9, 11, 13]; 
- // const notes2 = [-5, -3, -2,  0, 2, 3]; 
- // const notes3 = [-15 ,-13, -12, -10, -8 , -7]; 
 // diatonic scales 
 const notes3 = [6, 8, 10, 11, 13, 15]; 
 const notes2 = [-4, -2, -1,  1, 3, 5]; 
 const notes = [-18, -16, -14 ,-13, -11, -9, -7, -6];
 
-
-
 const notes3_1 = [5, 7, 9, 10, 12, 14]; 
 const notes2_1 = [-5, -3, -2,  0, 2, 4]; 
 const notes_1 = [-19, -17, -15 ,-14, -12, -10, -8 ,-7]; 
 
+// Pentatonic scales:
 const pentaNotes3 = [3, 6, 8, 11, 13, 15]; 
 const pentaNotes2 = [-8, -6 , -4, -1,  1, 3, 6]; 
 const pentaNotes = [-20, -18, -16, -13 ,-11, -8, -6, -4 ,-1]; 
@@ -242,6 +256,7 @@ const pentaNotes6 = [7, 9, 12, 14, 16, 19];
 const pentaNotes5 = [-0, -2 , 4, 7,  9, 12]; 
 const pentaNotes4 = [-17, -15, -12 ,-10, -8, -5, -3 , 0]; 
 
+// Whole note scales:
 const wholeNotes3 = [10, 12, 14, 16, 18, 20]; 
 const wholeNotes2 = [-2 , 0, 2,  4, 6, 8]; 
 const wholeNotes = [-20 ,-18, -16, -14, -12 ,-10]; 
@@ -257,10 +272,7 @@ const harmNotes = [-12, -11, -8, -6, -4, -3, -2]
 
 
 
-
-
-   // const notes3 = [-8, -5, -3 ,0, 2, 4,  7, 9, 12, 14, 16, 19]; 
-
+// Empty arrays to be used in the random generator
   let randomArray = [];
   let randomArray2 = [];
   let randomArray3 = [];
@@ -268,7 +280,12 @@ const harmNotes = [-12, -11, -8, -6, -4, -3, -2]
   let randomHiHatArray = [];
   let randomDrumArray = [];
   let randomMelodyArray = [];
-     // creating a random rhythm
+  let scaleNotes = [];
+  let scaleNotes2 = [];
+  let scaleNotes3 = [];
+
+
+     // Fuctions for creating random integers (source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random).
      function getRandomInt(max) {
         return Math.floor(Math.random() * max);
       }
@@ -277,6 +294,7 @@ const harmNotes = [-12, -11, -8, -6, -4, -3, -2]
         return Math.floor(Math.random() * max);
       }
 
+      // Generating random integers
       const random0 = getRandomInt(15) + 2;
       const randomScale = getRandomInt(14);
       const randomTimbre = getRandomInt2(8);
@@ -284,6 +302,7 @@ const harmNotes = [-12, -11, -8, -6, -4, -3, -2]
       const randomTimbre3 = getRandomInt2(8);
       const randomTempo = getRandomInt(12);
 
+      // Random selecting between instruments for synth4:
       if ((randomTimbre == 0) || ( randomTimbre == 7 ))
       synth4.oscillator.type = "fmsine";
       else if ((randomTimbre == 1) || ( randomTimbre == 6 ))
@@ -299,8 +318,8 @@ const harmNotes = [-12, -11, -8, -6, -4, -3, -2]
       
       
       });
-      //console.log(randomTimbre, synth4.oscillator.type);
 
+// Random selecting between instruments for the synth and synth0:
       if ((randomTimbre2 == 0) || ( randomTimbre2 == 7 ))
       synth = new Tone.Sampler({
           urls: {
@@ -374,7 +393,8 @@ const harmNotes = [-12, -11, -8, -6, -4, -3, -2]
       
       
       });
-      //console.log(randomTimbre, synth4.oscillator.type);
+
+// Random decision of tempo (Beats Per Minute / BPM):
       
       if ((randomTempo == 0) || ( randomTempo == 5 ))
       Tone.Transport.bpm.value = 40;
@@ -388,17 +408,14 @@ const harmNotes = [-12, -11, -8, -6, -4, -3, -2]
         Tone.Transport.bpm.value = 50;
         
 
-
+// HTML monitoring of time signature and BPM:
       document.getElementById("timeSign").innerHTML =
       "Time signature: " + random0 + " / 16";
 
       document.getElementById("tempo").innerHTML =
       "BPM: " + Tone.Transport.bpm.value;
 
-      let scaleNotes = [];
-      let scaleNotes2 = [];
-      let scaleNotes3 = [];
-
+// Random selection of scales:
       if ((randomScale == 0) || ( randomScale == 13 ))
       scaleNotes = pentaNotes,
       scaleNotes2 = pentaNotes2,
@@ -436,9 +453,7 @@ const harmNotes = [-12, -11, -8, -6, -4, -3, -2]
       scaleNotes2 = wholeNotes5,
       scaleNotes3 = wholeNotes6,
       document.getElementById("scale").innerHTML =
-      "Scale: wholetone2";
-      //console.log(random0);
-      
+      "Scale: wholetone2";    
     
       else if ((randomScale == 6) || ( randomScale == 7 ))
       scaleNotes = pentaNotes4,
@@ -446,12 +461,10 @@ const harmNotes = [-12, -11, -8, -6, -4, -3, -2]
       scaleNotes3 = pentaNotes6,
       document.getElementById("scale").innerHTML =
       "Scale: pentatone2";
-      //console.log(random0);
-      
+ 
 
 
-
-
+// Random creation of melody lines
   function createRandomness() {
 
     
@@ -476,12 +489,12 @@ const harmNotes = [-12, -11, -8, -6, -4, -3, -2]
      let random6 = freq(randomNote6());
      randomArray6.push(random6);
 
-
+     // getting random numbers
      let random4 = getRandomInt(10);
      let random5 = getRandomInt(14);
-     let randomMelody = getRandomInt(14);
 
 
+     // Generating random rhythm groove and random melody. Selecting notes from the arrays random, random2 and random6
      if (random4 < 4)
      randomHiHatArray.push(("C1 C1").split(" ")),
      randomMelodyArray.push(random);
