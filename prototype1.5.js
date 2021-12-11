@@ -2,7 +2,7 @@
 // as a part of a Master's thesis in 2021. The apps use motion in the air to produce 
 // sound and music. The motion capture engine is based on examples from the Diff Cam Engine:
 // https://github.com/lonekorean/diff-cam-engine
-// Licence:
+// Diffcam Engine Licence:
 
 /* Copyright (c) 2016 Will Boyd
 
@@ -102,7 +102,7 @@ SOFTWARE.*/
     
     });
 
-    // scale select variable:
+    // scale select variable.:
     let scaleSelect = ["C2", "D2", "E2", "F2", "G2", "A2", "B2", "C3", "D3", "E3", "F3", "G3", "A3", "B3", "C4", "D4", "E4", "F4", "G4", "A4", "B4", "C5", "D5", "E5", "F5"];
 
   
@@ -485,12 +485,13 @@ function capture() {
 					motionPixels = calculateMotionPixels(motionPixels, coords.x, coords.y, pixelDiff);			
 				}
 
-			// using the x coords to change pitch
 
-            // A function for activation of notes:
-            
-//console.log(i);
+
 // i vaues from left to right: 28, 24, 20, 16, 12, 8, 5
+// Buttons created with it and else statements.
+// For selection of effects and instruments, as well
+// as monitoring in the GUI.
+
             if (i == 20) {
                 document.getElementById("fx1on").innerHTML =
                 "on";
@@ -498,8 +499,8 @@ function capture() {
                 "";
                 document.getElementById("fx3on").innerHTML =
                 "";
-                gainSynth1.connect(phaser);
 
+                gainSynth1.connect(phaser);
                 gainSynth1.disconnect(pingPong);
 
 
@@ -513,7 +514,6 @@ function capture() {
                 "";
 
                 gainSynth1.connect(pingPong);
-
                 gainSynth1.disconnect(phaser);
 
             // instruments on:
@@ -528,24 +528,9 @@ function capture() {
             "";
 
             synth1.connect(gainSynth1);
-
-            // synth2.disconnect(gainSynth1);
-
             synth3.disconnect(gainSynth1); 
 
 
-/*         } else if (i == 4) {
-            document.getElementById("instr2on").innerHTML =
-            "Synth2: on";
-            document.getElementById("instr1on").innerHTML =
-            "";
-            document.getElementById("instr3on").innerHTML =
-            "";
-            synth2.connect(gainSynth1);
-
-            synth3.disconnect(gainSynth1); */
-
-    
         } 
         
         else if (i == 0){
@@ -555,8 +540,8 @@ function capture() {
             "";
             document.getElementById("instr1on1").innerHTML =
             "";
-            synth3.connect(gainSynth1);
-            
+
+            synth3.connect(gainSynth1);     
             synth1.disconnect(gainSynth1);
 
         }
@@ -573,7 +558,7 @@ function capture() {
 
 
 
-// Functions we don't need to duplicate:
+// Functions from the DiffCam that we don't need to duplicate:
 function calculateMotionPixels(motionPixels, x, y, pixelDiff) {
     motionPixels[x] = motionPixels[x] || [];
     motionPixels[x][y] = true;
