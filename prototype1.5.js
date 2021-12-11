@@ -1,4 +1,6 @@
-// This code is based on examples from the Diff Cam Engine:
+// This is the third iteration of the Macro apps that were developed by Mari Lesteberg
+// as a part of a Master's thesis in 2021. The apps use motion in the air to produce 
+// sound and music. The motion capture engine is based on examples from the Diff Cam Engine:
 // https://github.com/lonekorean/diff-cam-engine
 // Licence:
 
@@ -22,19 +24,36 @@ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-// Denne versjonen er fra 22. februar 2021. Ryddet og stablet.
-// 18. mai: Forsøker å få det til å låte smoothere.Trigger attack-release i stedet for en kontinuerlig tone.
-// 30. sept: major changes in design. no more buttons.
-// Tone JS variables:
+/* 
 
-    
+MIT License
+
+Copyright (c) 2021 Mari Lesteberg
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.*/
+
+
     ///////// TONE.JS VARIABLES ///////////
     
     // gain:
     const gainNode = new Tone.Gain().toDestination();
     const gainSynth1 = new Tone.Gain().toDestination();
-
-
     gainNode.gain.value = 0.3;
     gainSynth1.gain.value = 0.3;
 
@@ -47,15 +66,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
       octaves: 2,
       baseFrequency: 300
     }).connect(gainNode);
-    //const shift = new Tone.FrequencyShifter().connect(gainNode);
-    
-    // devide four effects by four to not exceed 100
-    pingPong.wet.value = 1;
-    //cheby.wet.value = 1;
-    phaser.wet.value = 1;
-    //shift.wet.value = 1;
 
-    // deafault synth:
+    pingPong.wet.value = 1;
+    phaser.wet.value = 1;
+
+
+    // default synth 1:
     const synth1 = new Tone.MonoSynth({
         oscillator: {
             type: "sine9"
@@ -67,17 +83,17 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
             release: 0.3
         }
     }).connect(gainSynth1);
-    
+
+    // default synth 2:  
     const synth2 = new Tone.Sampler({
         urls: {
             Ab3: "samples/Ab3.mp3",
             Db3: "samples/Db3.mp3",
         },
       
-      
       });
 
-
+    // default synth 3:
       const synth3 =  new Tone.Sampler({
         urls: {
             G1: "samples/4G1.wav",
@@ -90,7 +106,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
     let scaleSelect = ["C2", "D2", "E2", "F2", "G2", "A2", "B2", "C3", "D3", "E3", "F3", "G3", "A3", "B3", "C4", "D4", "E4", "F4", "G4", "A4", "B4", "C5", "D5", "E5", "F5"];
 
   
-
+// "MUTE" button:
 document.getElementById("mute").addEventListener("click", function(){
    
     
@@ -112,6 +128,7 @@ document.getElementById("mute").addEventListener("click", function(){
 
 });
 
+// Volume fader:
 var slider = document.getElementById("volume");
 
 // Update the current slider value (each time you drag the slider handle)
@@ -123,9 +140,7 @@ slider.oninput = function() {
     
 }
 
-/// DiffCam Variables:
-
-
+/// DiffCam Variables for Motion Capture:
 
 var DiffCamEngine = (function() {
 
@@ -240,14 +255,16 @@ function capture() {
 
 
     // CANVAS 1:
-    // behold  Koden her inne er esssensiell for oppdeling av vinduet
-    // diffContext lager nye fraksjoner av canvas. difference og source-over må være likt.
+    // 
+    // This code is essensial for division of the window:
+    // diffContext makes new fractions of the canvas.
+    // Difference and source-over must be the same.
     var captureImageData = captureContext.getImageData(0, 0, captureWidth, 1);
     diffContext.globalCompositeOperation = 'difference';
     diffContext.drawImage(video, 0, 0, diffWidth, diffHeight);
-    // denne forskjellen er viktig. diffContext2 er essensiell.
+    // This difference is important. diffContext is essential.
     var diffImageData = diffContext.getImageData(0, 0, 2, diffHeight);
-    //*** behold */
+    //*** keep */
     // draw current capture normally over diff, ready for next time
     diffContext.globalCompositeOperation = 'source-over';
     diffContext.drawImage(video, 0, 0, diffWidth, diffHeight);
@@ -256,20 +273,23 @@ function capture() {
     var captureImageData2 = captureContext.getImageData(0, 4, captureWidth, 1);
     diffContext2.globalCompositeOperation = 'difference'; 
     diffContext2.drawImage(video, 0, 0, diffWidth2, diffHeight2);   
-    // denne forskjellen er viktig. diffContext2 er essensiell.
+    /// This difference is important. diffContext2 is essential.
     var diffImageData2 = diffContext2.getImageData(2, 4, diffWidth2, 1); // BEHOLD
-    //*** behold */
+    ///*** keep */
     diffContext2.globalCompositeOperation = 'source-over';
     diffContext2.drawImage(video, 0, 0, diffWidth2, diffHeight2);
 
 
     if (isReadyToDiff) {     
         // Canvas 1 (Filter):
-        // this is where you place the grid on the canvas
-        // for å forklare hvor griden blir satt: det første tallet er y-aksen
-        // og de andre tallet er x-aksen. Husk at bildet er speilvendt, 
-        // så du teller fra venstre og bort.
-        // Husk også at du starter på 0, så 5 blir nederste på y-aksen. Og 0 er borteste på y-aksen.
+
+        // This is where you place the grid on the canvas.
+        // Explanaition of where the grid is placed: the first number is the Y axis
+        // the other number is the X axis. Remember that the picture is mirrored,
+        // So you count from the left side.
+        // Remember also that you start on 0, so 5 will be on the bottom of the Y axis.
+        // And 0 will be the to the right on the X axis.
+
         var diff = processDiff(diffImageData);
         motionContext.putImageData(diffImageData, 0, 0);
         if (diff.motionBox) {
@@ -311,7 +331,9 @@ function capture() {
         }
         captureCallback2({
             imageData2: captureImageData2,
-            // score2 her for å gi monitoring i HTMLen (husk også å legge til i diffcam1.js )
+            // score2 will give monitoring in the GUI. 
+            // (remember also to add score2 in diffcam1.js 
+            // if you want monitoring in the GUI
             score2: diff2.score,
             hasMotion2: diff2.score >= 2,
             motionBox: diff2.motionBox,
@@ -328,13 +350,14 @@ function capture() {
  // Canvas 3 (Oscillator):
  var diff3 = processDiff3(diffImageData3);
  // this is where you place the grid on the canvas
+ // The third canvas is not used in this iteration.
 
 
     }
     }
 
 // CANVAS 1 PROCESSING DIFF
-// The first one is the Y axis, currently controling a Filter
+// The first one is the Y axis (the vertical), currently controling a pitch of notes and effects
 	function processDiff(diffImageData) {
 		
 		var rgba = diffImageData.data;
@@ -346,10 +369,10 @@ function capture() {
 		for (var i = 0; i < rgba.length; i += 4) {
 			var pixelDiff = rgba[i] * 0.9 + rgba[i + 1] * 0.3 + rgba[i + 2] * 0.3;
 			var normalized = Math.min(255, pixelDiff * (50 / pixelDiffThreshold));         
-			rgba[i] = 0;
-			rgba[i + 1] = 0;
-            rgba[i + 2] = normalized;
-            rgba[i + 3] = normalized;
+			rgba[i] = 0; // red
+			rgba[i + 1] = 0; // green
+            rgba[i + 2] = normalized; // blue
+            rgba[i + 3] = normalized; // opactiy
 
 			if (pixelDiff >= pixelDiffThreshold) {
 				score++;
@@ -361,23 +384,23 @@ function capture() {
 					motionPixels = calculateMotionPixels(motionPixels, coords.x, coords.y, pixelDiff);	
 				}
 	
-			// A simple volume control:
-			//var xValue = (((i * (-1)) + 40) / 8) / 50; //	
-			//gainNode2.gain.value = xValue; //
 
+// This is where any value can be controlled by the number "i".
             var xValue = (i * (-1)) + 57;	
-            // Scaling the number with generateScaleFunction
-/*             let filterScale = generateScaleFunction(0, 57, 0, 10);      
-            xValue = filterScale(xValue); */
+
+            // the value is normalized to get a value between 0 and 1
             yNormValue = (((i * (-1)) + 56)/ 56);
-            // This is where any value can be controlled by the number "i".
-            console.log(xValue);
+            
+// We choose to use only two effects in this version: Phaser and pingPong. 
             phaser.frequency.value = xValue;
-          //  pingPong.delayTime.value = i;
             pingPong.feedback.value = yNormValue;
 
-           console.log(i);
 
+// With if and else statements, a system for selection of notes is created. This system trigger notes 
+// of several instruments at the same time, but only one the instruments that are activated in the GUI
+// will produce any sound. This system allows for including the option of selcting betweenseveral scales 
+// in later iterations, but in this version, only one scale (scaleSelect) is active. The GUI is updated with
+// the name of the note every time a note is played.
            if (i == 56)
                 synth1.triggerAttackRelease(scaleSelect[0], "2n"),
                 synth2.triggerAttackRelease(scaleSelect[0], "2n"),
@@ -429,8 +452,9 @@ function capture() {
         };  
 	}
 
-// CANVAS 2 PROCESSING DIFF
-// The second one is the X axis, currently controlling pitch
+// CANVAS 2 PROCESSING DIFF  
+// The second one is the X axis (horizontal), currently containing different buttons for selection
+// of instruments and effects.
 	function processDiff2(diffImageData2) {
 		
 		var rgba = diffImageData2.data;
@@ -445,10 +469,10 @@ function capture() {
 			var pixelDiff = rgba[i] * 0.3 + rgba[i + 1] * 0.3 + rgba[i + 2] * 0.3;
             var normalized2 = Math.min(255, pixelDiff * (70 / pixelDiffThreshold));
             
-			rgba[i] = normalized2; // rød
-			rgba[i + 1] = 0; // grønn
-            rgba[i + 2] = 0; // blå
-            rgba[i + 3] = normalized2; // lysstyrke
+			rgba[i] = normalized2; // red
+			rgba[i + 1] = 0; // green
+            rgba[i + 2] = 0; // blue
+            rgba[i + 3] = normalized2; // opactiy
             
         
 			if (pixelDiff >= pixelDiffThreshold) {
