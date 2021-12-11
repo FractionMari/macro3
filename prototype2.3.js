@@ -494,7 +494,7 @@ const harmNotes = [-12, -11, -8, -6, -4, -3, -2]
      let random5 = getRandomInt(14);
 
 
-     // Generating random rhythm groove and random melody. Selecting notes from the arrays random, random2, random3 and random6
+     // Generating random rhythm groove and random melody. Selecting notes from the arrays random, random2 and random6
 
      if (random4 == 1)
      randomHiHatArray.push(("C1 C1").split(" ")),
@@ -670,14 +670,15 @@ function capture() {
 
 
     // CANVAS 1:
-    // behold  Koden her inne er esssensiell for oppdeling av vinduet
-    // diffContext lager nye fraksjoner av canvas. difference og source-over må være likt.
+    // This code is essensial for division of the window:
+    // diffContext makes new fractions of the canvas.
+    // Difference and source-over must be the same.
     var captureImageData = captureContext.getImageData(0, 0, captureWidth, 1);
     diffContext.globalCompositeOperation = 'difference';
     diffContext.drawImage(video, 0, 0, diffWidth, diffHeight);
-    // denne forskjellen er viktig. diffContext2 er essensiell.
+    // This difference is important. diffContext is essential.
     var diffImageData = diffContext.getImageData(0, 0, 2, diffHeight);
-    //*** behold */
+    //*** keep */
     // draw current capture normally over diff, ready for next time
     diffContext.globalCompositeOperation = 'source-over';
     diffContext.drawImage(video, 0, 0, diffWidth, diffHeight);
@@ -686,19 +687,21 @@ function capture() {
     var captureImageData2 = captureContext.getImageData(0, 4, captureWidth, 1);
     diffContext2.globalCompositeOperation = 'difference'; 
     diffContext2.drawImage(video, 0, 0, diffWidth2, diffHeight2);   
-    // denne forskjellen er viktig. diffContext2 er essensiell.
+    /// This difference is important. diffContext2 is essential.
     var diffImageData2 = diffContext2.getImageData(0, 4, diffWidth2, 1); // BEHOLD
-    //*** behold */
+    //*** keep */
     diffContext2.globalCompositeOperation = 'source-over';
     diffContext2.drawImage(video, 0, 0, diffWidth2, diffHeight2);
 
     if (isReadyToDiff) {     
-        // Canvas 1 (Filter):
-        // this is where you place the grid on the canvas
-        // for å forklare hvor griden blir satt: det første tallet er y-aksen
-        // og de andre tallet er x-aksen. Husk at bildet er speilvendt, 
-        // så du teller fra venstre og bort.
-        // Husk også at du starter på 0, så 5 blir nederste på y-aksen. Og 0 er borteste på y-aksen.
+        // Canvas 1:
+        // This is where you place the grid on the canvas.
+        // Explanaition of where the grid is placed: the first number is the Y axis
+        // the other number is the X axis. Remember that the picture is mirrored,
+        // So you count from the left side.
+        // Remember also that you start on 0, so 5 will be on the bottom of the Y axis.
+        // And 0 will be the to the right on the X axis.
+
         var diff = processDiff(diffImageData);
         motionContext.putImageData(diffImageData, 0, 0);
         if (diff.motionBox) {
@@ -727,7 +730,7 @@ function capture() {
                         
         });
 
-        // Canvas 2 (Oscillator):
+        // Canvas 2:
         var diff2 = processDiff2(diffImageData2);
         // this is where you place the grid on the canvas
         
@@ -743,7 +746,9 @@ function capture() {
         }
         captureCallback2({
             imageData2: captureImageData2,
-            // score2 her for å gi monitoring i HTMLen (husk også å legge til i diffcam1.js )
+            // score2 will give monitoring in the GUI. 
+            // (remember also to add score2 in diffcam1.js 
+            // if you want monitoring in the GUI
             score2: diff2.score,
             hasMotion2: diff2.score >= 2,
             motionBox: diff2.motionBox,
@@ -759,7 +764,7 @@ function capture() {
     }
 
 // CANVAS 1 PROCESSING DIFF
-// The first one is the Y axis, currently controling a Filter
+// The first one is the Y axis, currently controlling the effects
 	function processDiff(diffImageData) {
 		
         var rgba = diffImageData.data;
@@ -774,11 +779,11 @@ function capture() {
 			var normalized = Math.min(255, pixelDiff * (50 / pixelDiffThreshold)); 
             
 
-			rgba[i] = 0;
-			rgba[i + 1] = 0;
-            rgba[i + 2] = normalized;
-            rgba[i + 3] = normalized;
-            //console.log(pixelDiff);
+			rgba[i] = 0; // red
+			rgba[i + 1] = 0; // green
+            rgba[i + 2] = normalized; // blue
+            rgba[i + 3] = normalized; // opacity
+
 			if (pixelDiff >= pixelDiffThreshold) {
 				score++;
 				coords = calculateCoordinates(i / 4);
@@ -788,44 +793,26 @@ function capture() {
 				if (includeMotionPixels) {
 					motionPixels = calculateMotionPixels(motionPixels, coords.x, coords.y, pixelDiff);	
 				}
-                //console.log(score * 10)
-              //  let tempo = ((i * -1) + 240) / 4 + 40;
-              // console.log(tempo);
 
-           // Tone.Transport.bpm.rampTo(tempo, 0.5);
-           // document.getElementById("tempo").innerHTML =
-           // "Tempo: " + tempo + " BPM";
-			// A simple volume control:
-// xValue er egentlig y-aksen, bestemmer hvilket punkt på linjen
-
-// pixelDiff er mye bevegelse
-// i er y-koordinaten
-
-
-
-// Score er hvor raskt en beveger seg
-//console.log(score);
 
             var xValue = (i * (-1)) + 249;	
             // Scaling the number with generateScaleFunction
             let filterScale = generateScaleFunction(0, 249, 0, 10);      
             xValue = filterScale(xValue);
-            // This is where any value can be controlled by the number "i".
-            //var normXvalue = 
-            //console.log(((xValue / 10) * -1) + 1);
-            //
-            autoWah.octaves = xValue / 4;
 
+            // This is where any value can be controlled by the number "i".
+            // currently controlling these effects:
+            autoWah.octaves = xValue / 4;
             autoWah.Q.value = 8;
             pingPong.feedback.value = xValue / 10;
-            //synth6.envelope.attack = xValue / 10;
-            //synth.envelope.attack = xValue / 10;
+
+            // and the envelope of the instruments:
             synth2.envelope.attack = xValue / 10;
             synth3.envelope.attack = xValue / 10;
-            //synth.envelope.release = xValue / 10;
+
             synth2.envelope.release = xValue / 10;
             synth3.envelope.release = xValue / 10;
-            //autoWah.baseFrequency.rampTo(xValue, 0.2);
+
 			}
         }
 
@@ -837,7 +824,7 @@ function capture() {
 	}
 
 // CANVAS 2 PROCESSING DIFF
-// The second one is the X axis, currently controlling pitch
+// The second one is the X axis, currently controlling on and off of buttons
 	function processDiff2(diffImageData2) {
 		
 		var rgba = diffImageData2.data;
@@ -865,11 +852,9 @@ function capture() {
 					motionPixels = calculateMotionPixels(motionPixels, coords.x, coords.y, pixelDiff);			
 				}
 
-			// using the x coords to change pitch
-
-            // A function for activation of notes:
 
 
+// With if and else statements, a system for turning on and off buttons is created. 
 // i vaues from left to right: 28, 24, 20, 16, 12, 8, 5
             if (i == 28)
                 synth.connect(autoWah),
@@ -934,8 +919,7 @@ function capture() {
 
 
 
-
-// Functions we don't need to duplicate:
+// Functions from the DiffCam that we don't need to duplicate:
 function calculateMotionPixels(motionPixels, x, y, pixelDiff) {
     motionPixels[x] = motionPixels[x] || [];
     motionPixels[x][y] = true;

@@ -281,7 +281,7 @@ function capture() {
 
 
     if (isReadyToDiff) {     
-        // Canvas 1 (Filter):
+        // Canvas 1:
 
         // This is where you place the grid on the canvas.
         // Explanaition of where the grid is placed: the first number is the Y axis
