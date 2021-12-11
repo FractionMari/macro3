@@ -501,7 +501,7 @@ const harmNotes = [-12, -11, -8, -6, -4, -3, -2]
      if (random4 == 1)
      randomHiHatArray.push(("C1 C1").split(" ")),
      randomMelodyArray.push((0 + " " + random).split(" "));
-     if (random4 > 7)
+     if (random4 == 7)
      randomHiHatArray.push(("C2 C2").split(" ")),
      randomMelodyArray.push((random + " " + random6).split(" "));
 
@@ -511,15 +511,23 @@ const harmNotes = [-12, -11, -8, -6, -4, -3, -2]
 
      if (random4 == 5)
      randomHiHatArray.push("C1"),
-     randomMelodyArray.push((random6 + " " + random6).split(" "));
+     randomMelodyArray.push((random3 + random6).split(" "));
 
      if (random4 == 4)
-     randomHiHatArray.push(("C1").split(" ")),
-     randomMelodyArray.push((random + " " + random2).split(" "));
+     randomHiHatArray.push("C1"),
+     randomMelodyArray.push(random3);
+
+     if (random4 == 8)
+     randomHiHatArray.push(("C1 C2").split(" ")),
+     randomMelodyArray.push((random + " " + random).split(" "));
+
+     if (random4 == 9)
+     randomHiHatArray.push((" " + "C2").split(" ")),
+     randomMelodyArray.push((random6 + " " + random2).split(" "));
 
      else
      randomHiHatArray.push("C1"),
-     randomMelodyArray.push((random + " " + random2 + " " + random6).split(" "));
+     randomMelodyArray.push((random + " " + random2).split(" "));
 
      if (random5 > 10)
      randomDrumArray.push(("C1 C1").split(" "));
